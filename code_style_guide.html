@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Welcome file</title>
+	<link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+	<div class="stackedit__html">
+		<h1 id="код-стилі-бойынша-нұсқаулық">Код стилі бойынша нұсқаулық</h1>
+		<p>PHP қауымдастығы үлкен және алуан түрлі, ол көптеген кітапханалардан, құрылымдардан және компоненттерден
+			тұрады. Әдетте, PHP әзірлеушілері олардың бірнешеуін таңдап, бір жобаға біріктіреді. Әзірлеушілерге өз
+			жобалары үшін әртүрлі кітапханаларды араластыру және сәйкестендіру оңай болуы үшін PHP кодының жалпы код
+			стилін (мүмкіндігінше) ұстануы маңызды.</p>
+		<p><a href="https://www.php-fig.org/">Фреймворктармен өзара әрекеттесу тобы</a> бірқатар стильдік ұсыныстарды
+			ұсынды және мақұлдады. Олардың барлығы код стиліне жатпайды, бірақ олар <a
+				href="https://www.php-fig.org/psr/psr-1/">PSR - 1</a>, <a
+				href="https://www.php-fig.org/psr/psr-12/">PSR-12</a>, <a
+				href="https://www.php-fig.org/psr/psr-4/">PSR-4</a> және <a
+				href="https://www.php-fig.org/per/coding-style/">PER Coding Style</a>. Бұл ұсыныстар Drupal, Zend,
+			Symfony, Laravel, CakePHP, phpBB, AWS SDK, FuelPHP, Lithium және т. б. сияқты көптеген жобалар ұстанатын
+			ережелер жиынтығы ғана. біз асырап аламыз. Сіз оларды өз жобаларыңыз үшін пайдалана аласыз немесе жеке
+			стиліңізді пайдалануды жалғастыра аласыз.</p>
+		<p>Ең дұрысы, сіз белгілі стандартқа сәйкес келетін PHP кодын жазуыңыз керек. Бұл кез келген PSR комбинациясы
+			немесе PEAR немесе Zend әзірлеген кодтау стандарттарының бірі болуы мүмкін. Бұл дегеніміз, басқа
+			әзірлеушілер сіздің кодты оңай оқи алады және онымен жұмыс істей алады, ал компоненттерді жүзеге асыратын
+			қосымшалар үшінші тарап кодымен жұмыс істегенде де дәйектілікті қамтамасыз ете алады.</p>
+		<ul>
+			<li><a href="https://www.php-fig.org/psr/psr-1/">PSR - 1 туралы оқыңыз</a></li>
+			<li><a href="https://www.php-fig.org/psr/psr-12/">PSR - 12 туралы оқыңыз</a></li>
+			<li><a href="https://www.php-fig.org/psr/psr-4/">PSR-4 туралы оқыңыз</a></li>
+			<li><a href="https://www.php-fig.org/per/coding-style/">Әр кодтау стилі туралы оқыңыз</a></li>
+			<li><a href="https://pear.php.net/manual/en/standards.php">PEAR кодтау стандарттары туралы оқыңыз</a></li>
+			<li><a href="https://symfony.com/doc/current/contributing/code/standards.html">Symfony кодтау стандарттары
+					туралы оқыңыз</a></li>
+		</ul>
+		<p>Сіз <a href="https://github.com/squizlabs/PHP_CodeSniffer">PHP_CodeSniffer</a> көмегімен кодты осы
+			ұсыныстардың кез-келгеніне сәйкестігін тексере аласыз, ал нақты уақыт режимінде кері байланыс алу үшін <a
+				href="https://github.com/benmatselby/sublime-phpcs">Sublime Text</a> сияқты мәтіндік редакторларға
+			арналған плагиндер.</p>
+		<p>Төмендегі құралдардың бірін пайдаланып кодтың орналасуын автоматты түрде түзетуге болады:</p>
+		<ul>
+			<li>Олардың бірі-өте жақсы тексерілген кодтық базасы бар <a href="https://cs.symfony.com/">PHP Coding
+					standards Fixer</a>.</li>
+			<li>Сонымен қатар, <a
+					href="https://github.com/squizlabs/PHP_CodeSniffer/wiki/Fixing-Errors-Automatically">PHP_CodeSniffer</a>
+				жиынтығына кіретін PHP кодын жақсарту және түзету құралын кодты сәйкесінше теңшеу үшін пайдалануға
+				болады.</li>
+		</ul>
+		<p>Phpcs-ті қабықтан қолмен іске қосуға болады:</p>
+		<pre><code>phpcs -sw --standard=PSR1 file.php
+</code></pre>
+		<p>Ол қателерді көрсетеді және оларды қалай түзетуге болатынын сипаттайды. Бұл пәрменді git ілгегіне қосу
+			пайдалы болуы мүмкін. Осылайша, таңдалған стандартты бұзушылықтары бар филиалдар репозиторийге осы
+			бұзушылықтар түзетілгенге дейін жете алмайды.</p>
+		<p>Егер сізде PHP_CodeSniffer болса, онда сіз <a
+				href="https://github.com/squizlabs/PHP_CodeSniffer/wiki/Fixing-Errors-Automatically">PHP code Beautifier
+				және Fixer</a> көмегімен есеп беретін кодты орналастыру мәселелерін автоматты түрде түзете аласыз.</p>
+		<pre><code>phpcbf -w --standard=PSR1 file.php
+</code></pre>
+		<p>Тағы бір нұсқа - <a href="https://cs.symfony.com/">PHP кодтау стандарттарын түзету</a> құралын пайдалану. Бұл
+			код құрылымында қандай қателер оларды түзетпес бұрын болғанын көрсетеді.</p>
+		<pre><code>php-cs-fixer fix -v --rules=@PSR1 file.php
+</code></pre>
+		<p>Барлық таңбалар атаулары мен Код инфрақұрылымы үшін ағылшын тіліне артықшылық беріледі. Түсініктемелерді
+			кодтық базада жұмыс істей алатын барлық қазіргі және болашақ мүшелер оңай оқитын кез-келген тілде жазуға
+			болады.</p>
+		<p>Сонымен, таза PHP кодын жазу үшін жақсы қосымша ресурс-бұл <a
+				href="https://github.com/piotrplenik/clean-code-php">Clean Code PHP</a>.</p>
+	</div>
+</body>
+
+</html>
