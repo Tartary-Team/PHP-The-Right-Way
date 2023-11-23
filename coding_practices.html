@@ -1,0 +1,424 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome file</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="кодтау-әдістері">Кодтау әдістері</h1>
+<h3 id="негіздері">Негіздері</h3>
+<p>PHP-бұл барлық деңгейдегі бағдарламашыларға кодты тез ғана емес, тиімді түрде жасауға мүмкіндік беретін кең Тіл. Алайда, тілдік жолмен алға жылжу кезінде біз қысқа жолдардың және/немесе жаман әдеттердің пайдасына алғаш үйренген (немесе назардан тыс қалған) негіздерді жиі ұмытып кетеміз. Осы жалпы мәселемен күресуге көмектесу үшін бұл бөлім бағдарламашыларға PHP кодтаудың негізгі әдістерін еске салуға арналған.</p>
+<ul>
+<li><a href="https://phptherightway.com/pages/The-Basics.html">Негіздер</a> туралы оқуды жалғастырыңыз</li>
+</ul>
+<h3 id="күні-мен-уақыты">Күні мен уақыты</h3>
+<p>PHP-де күн мен уақытты пайдаланып оқу, жазу, салыстыру немесе есептеу кезінде сізге көмектесетін күн уақыты деп аталатын сынып бар. PHP-де DateTime-ден басқа күн мен уақытқа қатысты көптеген мүмкіндіктер бар, бірақ ол ең көп таралған қосымшалар үшін объектіге бағытталған интерфейсті ұсынады. DateTime уақыт белдеулерін өңдей алады, бірақ бұл қысқаша кіріспеден асып түседі.</p>
+<p>DateTime-мен жұмыс істеуді бастау үшін зауыттық createFromFormat() әдісі арқылы шикі күн мен уақыт жолын нысанға түрлендіріңіз немесе ағымдағы күн мен уақытты алу үшін жаңа деректер уақытын орындаңыз. Күн мен уақытты шығару жолына қайта түрлендіру үшін format() әдісін қолданыңыз.</p>
+<pre class=" language-php"><code class="prism  language-php">php
+<span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token variable">$raw</span> <span class="token operator">=</span> <span class="token string">'22. 11. 1968'</span><span class="token punctuation">;</span>
+<span class="token variable">$start</span> <span class="token operator">=</span> DateTime<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">createFromFormat</span><span class="token punctuation">(</span><span class="token string">'d. m. Y'</span><span class="token punctuation">,</span> <span class="token variable">$raw</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">echo</span> <span class="token string">'Start date: '</span> <span class="token punctuation">.</span> <span class="token variable">$start</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">'Y-m-d'</span><span class="token punctuation">)</span> <span class="token punctuation">.</span> <span class="token constant">PHP_EOL</span><span class="token punctuation">;</span>
+</span></code></pre>
+<p>Күн мен уақытты пайдаланып есептеу dateinterval класының көмегімен мүмкін болады. DateTime-де dateinterval-ді дәлел ретінде қабылдайтын add() және sub() сияқты әдістер бар. Әр күн үшін бірдей секунд күтетін кодты жазбаңыз. Жазғы уақытқа ауысу да, уақыт белдеулерінің өзгеруі де бұл болжамды бұзады. Оның орнына күн аралықтарын пайдаланыңыз. Күндер айырмашылығын есептеу үшін diff() әдісін қолданыңыз. Ол жаңа dateinterval мәнін қайтарады, оны көрсету өте оңай.</p>
+<pre class=" language-php"><code class="prism  language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token comment">// create a copy of $start and add one month and 6 days</span>
+<span class="token variable">$end</span> <span class="token operator">=</span> clone <span class="token variable">$start</span><span class="token punctuation">;</span>
+<span class="token variable">$end</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">DateInterval</span><span class="token punctuation">(</span><span class="token string">'P1M6D'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token variable">$diff</span> <span class="token operator">=</span> <span class="token variable">$end</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">diff</span><span class="token punctuation">(</span><span class="token variable">$start</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">echo</span> <span class="token string">'Difference: '</span> <span class="token punctuation">.</span> <span class="token variable">$diff</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">'%m month, %d days (total: %a days)'</span><span class="token punctuation">)</span> <span class="token punctuation">.</span> <span class="token constant">PHP_EOL</span><span class="token punctuation">;</span>
+<span class="token comment">// Difference: 1 month, 6 days (total: 37 days)</span>
+</span></code></pre>
+<p>DateTime нысандары үшін стандартты салыстыруларды пайдалануға болады:</p>
+<pre class=" language-php"><code class="prism  language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$start</span> <span class="token operator">&lt;</span> <span class="token variable">$end</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">echo</span> <span class="token string">"Start is before the end!"</span> <span class="token punctuation">.</span> <span class="token constant">PHP_EOL</span><span class="token punctuation">;</span><span class="token punctuation">}</span>
+</span></code></pre>
+<p>Dateperiod класын көрсетудің соңғы мысалы. Ол қайталанатын оқиғалардан асып түсу үшін қолданылады. Ол екі datetime, start және end нысандарын, сондай-ақ барлық аралық оқиғаларды қайтаратын аралықты қабылдай алады.</p>
+<pre class=" language-php"><code class="prism  language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token comment">// output all thursdays between $start and $end</span>
+<span class="token variable">$periodInterval</span> <span class="token operator">=</span> DateInterval<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">createFromDateString</span><span class="token punctuation">(</span><span class="token string">'first thursday'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$periodIterator</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DatePeriod</span><span class="token punctuation">(</span><span class="token variable">$start</span><span class="token punctuation">,</span> <span class="token variable">$periodInterval</span><span class="token punctuation">,</span> <span class="token variable">$end</span><span class="token punctuation">,</span> DatePeriod<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">EXCLUDE_START_DATE</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">foreach</span> <span class="token punctuation">(</span><span class="token variable">$periodIterator</span> <span class="token keyword">as</span> <span class="token variable">$date</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// output each date in the period</span>
+    <span class="token keyword">echo</span> <span class="token variable">$date</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">'Y-m-d'</span><span class="token punctuation">)</span> <span class="token punctuation">.</span> <span class="token string">' '</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</span></code></pre>
+<p>PHP API-дің танымал кеңейтімі Carbon. Ол DateTime сыныбындағы барлық нәрсені мұра етеді, сондықтан кодты минималды өзгертуді қажет етеді, бірақ қосымша мүмкіндіктерге локализацияны қолдау, DateTime нысанын қосудың, азайтудың және пішімдеудің қосымша әдістері және сіз таңдаған күн мен уақытты имитациялау арқылы кодты тексеру құралдары кіреді.</p>
+<ul>
+<li><a href="https://www.php.net/book.datetime">Күн мен уақыт туралы оқыңыз</a></li>
+<li><a href="https://www.php.net/function.date">Күнді пішімдеу туралы оқыңыз</a> (жарамды күн пішімі жолының параметрлері).</li>
+</ul>
+<h3 id="дизайн-үлгілері">Дизайн үлгілері</h3>
+<p>Қолданбаны жасаған кезде кодыңыздағы жалпы үлгілерді және жобаңыздың жалпы құрылымы үшін ортақ үлгілерді пайдалану пайдалы. Жалпы шаблондарды пайдалану пайдалы, себебі бұл сіздің кодты басқаруды едәуір жеңілдетеді және басқа әзірлеушілерге заттардың қалай үйлесетінін тез түсінуге мүмкіндік береді.</p>
+<p>Егер сіз жақтауды қолдансаңыз, онда жоғары деңгейлі кодтың көп бөлігі және жоба құрылымы осы шеңберге негізделеді, сондықтан көптеген үлгі шешімдері сіз үшін қабылданады. Бірақ сіз фреймворктың үстінде жасаған кодта қандай үлгілерді ұстанған дұрыс екенін өзіңіз шешесіз. Егер екінші жағынан, сіз өзіңіздің қосымшаңызды құру үшін шеңберді пайдаланбасаңыз, онда сіз жасаған қосымшаның түрі мен өлшеміне сәйкес келетін шаблондарды табуыңыз керек.</p>
+<p>Сіз PHP дизайн үлгілері туралы көбірек біле аласыз және жұмыс мысалдарын мына жерден көре аласыз:</p>
+<ul>
+<li><a href="https://refactoring.guru/design-patterns/php">https://refactoring.guru/design-patterns/php</a></li>
+<li><a href="https://designpatternsphp.readthedocs.io/en/latest/">https://designpatternsphp.readthedocs.io/</a>  (<a href="https://www.computer-pdf.com/web-programming/php/924-tutorial-designpatternsphp-documentation.html">PDF жүктеу</a>)</li>
+</ul>
+<h3 id="utf-8-мен-жұмыс">UTF-8-мен жұмыс</h3>
+<p>Бұл бөлімді бастапқыда <a href="https://phpbestpractices.org/#utf-8">PHP best Practices</a> қызметкері <a href="https://alexcabal.com/">Алекс Кабал</a> жазған және UTF-8 бойынша өз ұсыныстарымыздың негізі ретінде пайдаланылған.</p>
+<h4 id="мұнда-бір-лайнер-жоқ.-мұқият-егжей-тегжейлі-және-дәйекті-болыңыз.">Мұнда бір лайнер жоқ. Мұқият, егжей-тегжейлі және дәйекті болыңыз.</h4>
+<p>Дәл қазір PHP Юникодты төмен деңгейде қолдамайды. UTF-8 жолдарының жақсы өңделуін қамтамасыз етудің жолдары бар, бірақ бұл оңай емес және HTML-ден SQL және PHP-ге дейін веб-қосымшаның барлық деңгейлерін қазып алуды қажет етеді. Біз қысқаша практикалық түйіндеме беруге тырысамыз.</p>
+<h4 id="utf-8-php-деңгейінде">UTF-8 PHP деңгейінде</h4>
+<p>Екі жолды біріктіру және жолдарды айнымалыларға тағайындау сияқты негізгі жол операциялары UTF-8 үшін ерекше ештеңені қажет етпейді. Дегенмен, strpos() және strlen() сияқты жол функцияларының көпшілігі шынымен де ерекше қарастыруды қажет етеді. Бұл функциялар көбінесе mb_ * аналогына ие: мысалы, mb_strpos() және mb_strlen(). Бұл mb_ * жолдары сізге <a href="https://www.php.net/book.mbstring">көп байтты string</a> кеңейтімі арқылы қол жетімді және Юникод жолдарымен жұмыс істеу үшін арнайы жасалған.</p>
+<p>Сіз Unicode жолымен жұмыс істеген кезде mb_* функцияларын пайдалануыңыз керек. Мысалы, егер сіз UTF-8 жолы үшін substr() қолдансаңыз, нәтижеде бірнеше бұрмаланған жартылай таңбалар болуы мүмкін. Пайдалану үшін дұрыс функция mb_substr () көп байтты көшірмесі болар еді.</p>
+<p>Ең қиыны-mb_ * функцияларын үнемі қолдануды ұмытпау. Егер сіз кем дегенде бір рет ұмытып кетсеңіз, Юникодтағы жолыңыз одан әрі өңдеу кезінде бұрмалануы мүмкін.</p>
+<p>Барлық жол функцияларында mb_ * аналогы жоқ. Егер сіз жасағыңыз келетін бірде-бір нәрсе болмаса, онда сізде сәттілік болмауы мүмкін.</p>
+<p>Сіз жазған әрбір PHP сценарийінің жоғарғы жағында (немесе жаһандық сценарийдің жоғарғы жағында) mb_internal_encoding () функциясын және сценарийіңіз деректерді шолғышқа шығарса, mb_http_output() функциясын пайдалануыңыз керек. Әр сценарийде жолдарыңызды кодтаудың нақты анықтамасы сізді болашақта көптеген бас ауруларынан құтқарады.</p>
+<p>Сонымен қатар, жолдармен жұмыс істейтін көптеген PHP мүмкіндіктерінде таңбалардың кодталуын көрсетуге мүмкіндік беретін қосымша опция бар. Мүмкіндік берілген кезде сіз әрқашан UTF-8-ді нақты көрсетуіңіз керек. Мысалы, htmlentities () таңбаларды кодтауға арналған опцияға ие және егер сіз осындай жолдармен жұмыс жасасаңыз, әрқашан UTF-8-ді көрсетуіңіз керек. PHP 5.4.0 нұсқасынан бастап UTF-8 htmlentities() және htmlspecialchars () үшін әдепкі кодтау екенін ескеріңіз.</p>
+<p>Соңында, егер сіз таратылған қосымшаны жасасаңыз және mbstring кеңейтімі қосылатынына сенімді болмасаңыз, <a href="https://packagist.org/packages/symfony/polyfill-mbstring">symfony/polyfill-mbstring</a> Composer бумасын пайдалануды қарастырыңыз. Бұл қол жетімді болса, mbstring-ті пайдалануға және егер жоқ болса, UTF-8-ден басқа мүмкіндіктерге оралуға мүмкіндік береді.</p>
+<h4 id="utf-8-дерекқор-деңгейінде">UTF-8 дерекқор деңгейінде</h4>
+<p>Егер сіздің PHP сценарийіңіз MySQL-ге сілтеме жасаса, жоғарыда сипатталған барлық сақтық шараларын сақтасаңыз да, сіздің жолдарыңыз дерекқорда UTF-8 емес жолдар ретінде сақталуы мүмкін.</p>
+<p>Сіздің жолдарыңыз PHP-ден MySQL-ге UTF-8 ретінде берілгеніне көз жеткізу үшін, сіздің дерекқорыңыз бен кестелеріңізде utf8mb4 таңбалар жиынтығы мен сұрыптау параметрлері орнатылғанына және PDO қосылу жолында utf8mb4 таңбалар жиынтығын қолданғаныңызға көз жеткізіңіз. Төмендегі мысал кодын қараңыз. Бұл өте маңызды.</p>
+<p>UTF-8-ді толық қолдау үшін utf8 таңбалар жиынтығын емес, utf8mb4 таңбалар жиынтығын пайдалану керек екенін ескеріңіз! Неге, әрі қарай оқыңыз.</p>
+<h4 id="utf-8-браузер-деңгейінде">UTF-8 браузер деңгейінде</h4>
+<p>PHP сценарийі UTF-8 жолдарын шолғышқа шығаратынына көз жеткізу үшін mb_http_output() функциясын пайдаланыңыз.</p>
+<p>Содан кейін браузер HTTP жауабында бұл бетті UTF-8 ретінде қарау керек екенін айтуы керек. Бүгін HTTP жауабының тақырыбында таңбалар жиынтығын келесідей орнату әдеттегідей:</p>
+<pre class=" language-php"><code class="prism  language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token function">header</span><span class="token punctuation">(</span><span class="token string">'Content-Type: text/html; charset=UTF-8'</span><span class="token punctuation">)</span>
+</span></code></pre>
+<p>Бұған тарихи көзқарас сіздің парағыңыздың  тегіне <a href="http://htmlpurifier.org/docs/enduser-utf8.html">charset  тегін</a> қосу болды.</p>
+<pre class=" language-php"><code class="prism  language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token comment">// Tell PHP that we're using UTF-8 strings until the end of the script</span>
+<span class="token function">mb_internal_encoding</span><span class="token punctuation">(</span><span class="token string">'UTF-8'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$utf_set</span> <span class="token operator">=</span> <span class="token function">ini_set</span><span class="token punctuation">(</span><span class="token string">'default_charset'</span><span class="token punctuation">,</span> <span class="token string">'utf-8'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token variable">$utf_set</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Exception</span><span class="token punctuation">(</span><span class="token string">'could not set default_charset to utf-8, please ensure it\'s set on your system!'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// Tell PHP that we'll be outputting UTF-8 to the browser</span>
+<span class="token function">mb_http_output</span><span class="token punctuation">(</span><span class="token string">'UTF-8'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+<span class="token comment">// Our UTF-8 test string</span>
+<span class="token variable">$string</span> <span class="token operator">=</span> <span class="token string">'Êl síla erin lû e-govaned vîn.'</span><span class="token punctuation">;</span>
+
+<span class="token comment">// Transform the string in some way with a multibyte function</span>
+<span class="token comment">// Note how we cut the string at a non-Ascii character for demonstration purposes</span>
+<span class="token variable">$string</span> <span class="token operator">=</span> <span class="token function">mb_substr</span><span class="token punctuation">(</span><span class="token variable">$string</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">15</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// Connect to a database to store the transformed string</span>
+<span class="token comment">// See the PDO example in this document for more information</span>
+<span class="token comment">// Note the `charset=utf8mb4` in the Data Source Name (DSN)</span>
+<span class="token variable">$link</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">PDO</span><span class="token punctuation">(</span>
+    <span class="token string">'mysql:host=your-hostname;dbname=your-db;charset=utf8mb4'</span><span class="token punctuation">,</span>
+    <span class="token string">'your-username'</span><span class="token punctuation">,</span>
+    <span class="token string">'your-password'</span><span class="token punctuation">,</span>
+    <span class="token keyword">array</span><span class="token punctuation">(</span>
+        <span class="token constant">PDO</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">ATTR_ERRMODE</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token constant">PDO</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">ERRMODE_EXCEPTION</span><span class="token punctuation">,</span>
+        <span class="token constant">PDO</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">ATTR_PERSISTENT</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token boolean">false</span>
+    <span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// Store our transformed string as UTF-8 in our database</span>
+<span class="token comment">// Your DB and tables are in the utf8mb4 character set and collation, right?</span>
+<span class="token variable">$handle</span> <span class="token operator">=</span> <span class="token variable">$link</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">prepare</span><span class="token punctuation">(</span><span class="token string">'insert into ElvishSentences (Id, Body, Priority) values (default, :body, :priority)'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$handle</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">bindParam</span><span class="token punctuation">(</span><span class="token string">':body'</span><span class="token punctuation">,</span> <span class="token variable">$string</span><span class="token punctuation">,</span> <span class="token constant">PDO</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">PARAM_STR</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$priority</span> <span class="token operator">=</span> <span class="token number">45</span><span class="token punctuation">;</span>
+<span class="token variable">$handle</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">bindParam</span><span class="token punctuation">(</span><span class="token string">':priority'</span><span class="token punctuation">,</span> <span class="token variable">$priority</span><span class="token punctuation">,</span> <span class="token constant">PDO</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">PARAM_INT</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// explicitly tell pdo to expect an int</span>
+<span class="token variable">$handle</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">execute</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// Retrieve the string we just stored to prove it was stored correctly</span>
+<span class="token variable">$handle</span> <span class="token operator">=</span> <span class="token variable">$link</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">prepare</span><span class="token punctuation">(</span><span class="token string">'select * from ElvishSentences where Id = :id'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$id</span> <span class="token operator">=</span> <span class="token number">7</span><span class="token punctuation">;</span>
+<span class="token variable">$handle</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">bindParam</span><span class="token punctuation">(</span><span class="token string">':id'</span><span class="token punctuation">,</span> <span class="token variable">$id</span><span class="token punctuation">,</span> <span class="token constant">PDO</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">PARAM_INT</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$handle</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">execute</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// Store the result into an object that we'll output later in our HTML</span>
+<span class="token comment">// This object won't kill your memory because it fetches the data Just-In-Time to</span>
+<span class="token variable">$result</span> <span class="token operator">=</span> <span class="token variable">$handle</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">fetchAll</span><span class="token punctuation">(</span>\<span class="token package">PDO</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">FETCH_OBJ</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// An example wrapper to allow you to escape data to html</span>
+<span class="token keyword">function</span> <span class="token function">escape_to_html</span><span class="token punctuation">(</span><span class="token variable">$dirty</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">echo</span> <span class="token function">htmlspecialchars</span><span class="token punctuation">(</span><span class="token variable">$dirty</span><span class="token punctuation">,</span> <span class="token constant">ENT_QUOTES</span><span class="token punctuation">,</span> <span class="token string">'UTF-8'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">header</span><span class="token punctuation">(</span><span class="token string">'Content-Type: text/html; charset=UTF-8'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Unnecessary if your default_charset is set to utf-8 already</span>
+<span class="token delimiter important">?&gt;</span></span><span class="token doctype">&lt;!doctype html&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>UTF-8<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">&gt;</span></span>UTF-8 test page<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span>
+        <span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+        <span class="token keyword">foreach</span><span class="token punctuation">(</span><span class="token variable">$result</span> <span class="token keyword">as</span> <span class="token variable">$row</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token function">escape_to_html</span><span class="token punctuation">(</span><span class="token variable">$row</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token property">Body</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// This should correctly output our transformed UTF-8 string to the browser</span>
+        <span class="token punctuation">}</span>
+        <span class="token delimiter important">?&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+<h4 id="қосымша-оқу">Қосымша оқу</h4>
+<ul>
+<li><a href="https://www.php.net/language.operators.string">PHP нұсқаулығы: жол операциялары</a></li>
+<li><a href="https://www.php.net/ref.strings">PHP нұсқаулығы: жол функциялары</a>
+<ul>
+<li><a href="https://www.php.net/function.strpos">strpos()</a></li>
+<li><a href="https://www.php.net/function.strlen">strlen()</a></li>
+<li><a href="https://www.php.net/function.substr">substr()</a></li>
+</ul>
+</li>
+<li><a href="https://www.php.net/ref.mbstring">PHP нұсқаулығы: көп байтты жол функциялары</a>
+<ul>
+<li><a href="https://www.php.net/function.mb-strpos">mb_strpos()</a></li>
+<li><a href="https://www.php.net/function.mb-strlen">mb_strlen()</a></li>
+<li><a href="https://www.php.net/function.mb-substr">mb_substr()</a></li>
+<li><a href="https://www.php.net/function.mb-internal-encoding">mb_internal_encoding()</a></li>
+<li><a href="https://www.php.net/function.mb-http-output">mb_http_output()</a></li>
+<li><a href="https://www.php.net/function.htmlentities">htmlentities()</a></li>
+<li><a href="https://www.php.net/function.htmlspecialchars">htmlspecialchars()</a></li>
+</ul>
+</li>
+<li><a href="https://stackoverflow.com/questions/571694/what-factors-make-php-unicode-incompatible">Stack Overflow: PHP-ді Unicode-үйлеспейтін қандай факторлар бар?</a></li>
+<li><a href="https://stackoverflow.com/questions/140728/best-practices-in-php-and-mysql-with-international-strings">Stack Overflow: PHP және MySQL-дегі халықаралық жолдармен ең жақсы тәжірибелер</a></li>
+<li><a href="https://mathiasbynens.be/notes/mysql-utf8mb4">MySQL дерекқорларында толық Юникодты қалай сақтауға болады</a></li>
+<li><a href="https://www.sitepoint.com/bringing-unicode-to-php-with-portable-utf8/">UTF-8 портативті көмегімен ЮНИКОДТЫ PHP-ге тасымалдау</a></li>
+<li><a href="https://stackoverflow.com/questions/8218230/php-domdocument-loadhtml-not-encoding-utf-8-correctly">Stack Overflow: DOMDocument loadHTML UTF-8-ді қате кодтайды</a></li>
+</ul>
+<h3 id="интернационалдандыру-i18n-және-локализация-l10n">Интернационалдандыру (i18n) және локализация (l10n)</h3>
+<p>Жаңадан бастаушыларға ескерту: i18n және l10n - нөмірленушілер, сөздерді қысқарту үшін сандар қолданылатын қысқартулардың бір түрі - біздің жағдайда интернационалдандыру i18n, ал локализация l10n болады.</p>
+<p>Ең алдымен, біз осы екі ұқсас ұғымды және олармен байланысты басқа нәрселерді анықтауымыз керек:</p>
+<ul>
+<li>Интернационалдандыру-бұл сіздің кодты рефакторсыз әр түрлі тілдерге немесе аймақтарға бейімделетін етіп ұйымдастырған кезде. Бұл әрекет әдетте бір рет орындалады - жақсырақ жобаның басында, әйтпесе бастапқы кодта кейбір үлкен өзгерістер қажет болуы мүмкін!</li>
+<li>Локализация интерфейсті (негізінен) бұрын жасалған i18n жұмысына негізделген мазмұнды аудару арқылы бейімдеген кезде пайда болады. Бұл әдетте жаңа тілге немесе аймаққа қолдау қажет болған сайын жасалады және жаңа интерфейс элементтері қосылған кезде жаңартылады, өйткені олар барлық қолдау көрсетілетін тілдерде қол жетімді болуы керек.</li>
+<li>Плюрализация сандар мен есептегіштерді қамтитын жолдардың өзара әрекеттесуі үшін әртүрлі тілдер арасында талап етілетін ережелерді анықтайды. Мысалы, ағылшын тілінде сізде бір ғана элемент болған кезде, ол сингулярлы, ал одан ерекшеленетін нәрсе көпше деп аталады; бұл тілдегі көпше кейбір сөздерден кейін S әрпін қосу және кейде оның бөліктерін өзгерту арқылы көрсетіледі. Орыс немесе Серб сияқты басқа тілдерде жекеше саннан басқа екі көпше түрі бар-сіз тіпті словен, ирланд немесе араб сияқты төрт, бес немесе алты формасы бар ТІЛДЕРДІ таба аласыз.</li>
+</ul>
+<h3 id="іске-асырудың-жалпы-әдістері">Іске асырудың жалпы әдістері</h3>
+<p>PHP бағдарламалық жасақтамасын интернационалдандырудың ең оңай жолы-массив файлдарын пайдалану және осы жолдарды <code>&lt;h1&gt;&lt;?=$TRANS['title_about_page']?&gt;&lt;/h1&gt;</code>сияқты үлгілерде пайдалану Дегенмен, бұл әдіс маңызды жобалар үшін ұсынылмайды, өйткені ол жолда кейбір техникалық қызмет көрсету мәселелерін тудырады - кейбіреулері ең басында пайда болуы мүмкін, мысалы, плюрализация. Сондықтан, егер сіздің жобаңызда бірнеше беттен көп болса, мұны жасамаңыз.</p>
+<p>I18n және l10n үшін эталон ретінде жиі қолданылатын ең классикалық <a href="https://en.wikipedia.org/wiki/Gettext">әдіс-gettext</a> деп аталатын Unix құралы. Ол 1995 жылы құрылған және әлі күнге дейін аударма бағдарламалық жасақтамасының толық іске асырылуы болып табылады. Оны іске қосу өте оңай, ал ол әлі де қуатты көмекші құралдармен жабдықталған. Біз мұнда gettext туралы айтатын боламыз. Сондай-ақ, пәрмен жолында шатастырмауға көмектесу үшін біз l10n бастапқы кодын оңай жаңарту үшін пайдалануға болатын тамаша GUI қолданбасын ұсынамыз.</p>
+<h4 id="басқа-құралдар">Басқа құралдар</h4>
+<p>Gettext және басқа i18n енгізулерін қолдайтын кең таралған кітапханалар бар.кейбіреулерін орнату оңай болып көрінуі мүмкін немесе қосымша i18n функциялары немесе файл пішімдері болуы мүмкін. Бұл құжатта біз PHP ядросымен бірге келетін құралдарға назар аударамыз, бірақ мұнда нақтылау үшін басқаларын тізімдейміз:</p>
+<ul>
+<li><a href="https://github.com/auraphp/Aura.Intl">aura/intl</a>: интернационалдандыру құралдарын (I18N) ұсынады, атап айтқанда, әр тіл үшін пакетке бағытталған хабарлама аудармасы. Ол хабарламалар үшін массив форматтарын қолданады. Хабарламаларды шығару құралын ұсынбайды, бірақ intl кеңейтімі арқылы (бірнеше хабарламаларды қоса) кеңейтілген хабарламаларды пішімдеуді қамтамасыз етеді.</li>
+<li><a href="https://github.com/php-gettext/Gettext">php-gettext/Gettext</a>: OO интерфейсі бар Gettext қолдауы; жақсартылған көмекші мүмкіндіктерді, бірнеше файл пішімдері үшін қуатты экстракцияларды қамтиды (кейбіреулеріне бастапқыда gettext командасы қолдау көрсетпейді) және .mo /.po файлдарынан басқа басқа форматтарға экспорттай алады. Аударма файлдарын JavaScript интерфейсі сияқты жүйенің басқа бөліктеріне біріктіру қажет болса пайдалы болуы мүмкін.</li>
+<li><a href="https://symfony.com/components/Translation">symfony/translation</a>: әр түрлі форматтарды қолдайды, бірақ егжей-тегжейлі xliff-ті қолдануды ұсынады. көмекші функцияларды немесе кіріктірілген экстракторды қамтымайды, бірақ толтырғыштарды strtr() көмегімен қолдайды.</li>
+<li><a href="https://docs.laminas.dev/laminas-i18n/">laminas/laminas-i18n</a>: массивтер Мен INI файлдарын, сондай-ақ Gettext форматтарын қолдайды. Файлдық жүйені әр уақытта оқу қажеттілігінен құтқару үшін кэштеу деңгейін жүзеге асырады. Ол сондай-ақ көру көмекшілерін, сондай-ақ жергілікті енгізу сүзгілерін және аутентификация құралдарын қамтиды. Алайда, онда хабарлама алу құралы жоқ.</li>
+</ul>
+<p>Басқа құрылымдарға i18n модульдері де кіреді, бірақ олар өздерінің кодтық базаларынан тыс қол жетімді емес:</p>
+<ul>
+<li><a href="https://laravel.com/docs/master/localization">Laravel</a> негізгі массив файлдарын қолдайды, автоматты түрде шығарылмайды, бірақ үлгі файлдары үшін @lang көмекшісін қамтиды.</li>
+<li><a href="https://www.yiiframework.com/doc/guide/2.0/en/tutorial-i18n">Yii</a> array, Gettext және Дерекқорға негізделген аударманы қолдайды, сонымен қатар хабарлама алу құралын қамтиды. Оған PHP 5.3-тен бастап қол жетімді <a href="https://www.php.net/manual/intro.intl.php">Intl</a> кеңейтімі қолдау көрсетеді және <a href="https://icu.unicode.org/">ICU жобасына</a> негізделген; бұл Yii-ге сандарды жазу, күндерді, уақытты, интервалдарды, валютаны және реттік сандарды пішімдеу сияқты қуатты ауыстыруларды орындауға мүмкіндік береді.</li>
+</ul>
+<p>Егер сіз экстракторлар бермейтін кітапханалардың бірін пайдалануды таңдасаңыз, тараудың қалған бөлігінде сипатталғандай gettext құралдарының бастапқы жинағын (соның ішінде Poedit) пайдалану үшін gettext пішімдерін пайдаланғыңыз келуі мүмкін.</p>
+<h3 id="мәтін-алу">Мәтін алу</h3>
+<h4 id="орнату">Орнату</h4>
+<p>apt-get немесе yum сияқты пакет менеджерінің көмегімен Gettext және онымен байланысты PHP кітапханасын орнату қажет болуы мүмкін. Орнатқаннан кейін оны қосу арқылы қосыңыз <a href="http://extension=gettext.so">extension=gettext.so</a> (Linux/Unix) немесе extension=php_gettext.php үшін DLL (Windows).</p>
+<p>Мұнда біз аударма файлдарын жасау үшін <a href="https://poedit.net/">Poedit</a>-ті қолданамыз. Сіз оны жүйенің пакет менеджерінен таба аласыз; ол Unix, macOS және Windows үшін қол жетімді, сонымен қатар олардың <a href="https://poedit.net/download">веб-сайтында тегін жүктелуі</a> мүмкін.</p>
+<h3 id="құрылымы">Құрылымы</h3>
+<h4 id="файл-түрлері">Файл түрлері</h4>
+<p>Gettext-пен жұмыс істеу кезінде сіз әдетте айналысатын үш файл бар. Олардың негізгілері - PO (портативті объект) және MO (машиналық объект) файлдары, олардың біріншісі-оқылатын “аударылған объектілердің” тізімі, ал екіншісі-локализация кезінде gettext түсіндіретін сәйкес Екілік файл. Сондай-ақ, бастапқы файлдарыңыздағы барлық бар кілттерді қамтитын және барлық PO файлдарын жасау және жаңарту үшін нұсқаулық ретінде пайдалануға болатын POT файлы (шаблон) бар. Бұл үлгі файлдары міндетті емес: l10n жасау үшін пайдаланатын құралға байланысты сіз тек PO/MO файлдарынан құтыла аласыз. Сізде әр тіл мен аймақ үшін әрқашан бір жұп PO/MO файлдары болады, бірақ әр домен үшін бір ғана POT болады.</p>
+<h4 id="домендер">Домендер</h4>
+<p>Ірі жобаларда бір сөздер контекстке байланысты әртүрлі мағынаны білдіретін аудармаларды бөлу қажет болуы мүмкін жағдайлар бар. Мұндай жағдайларда сіз оларды әртүрлі домендерге бөлесіз. Бұл негізінен POT/PO/MO файлдарының аталған топтары, мұнда Файл атауы көрсетілген аударма домені болып табылады. Шағын және орта жобалар, әдетте, қарапайымдылық үшін тек бір доменді пайдаланады; оның атауы ерікті, бірақ біз код мысалдары үшін “main” қолданамыз. Мысалы, <a href="https://symfony.com/components/Translation">Symfony</a> жобаларында домендер тексеру хабарламаларының аудармасын бөлу үшін қолданылады.</p>
+<h4 id="тіл-коды">Тіл коды</h4>
+<p>Тіл стандарты-бұл тілдің бір нұсқасын анықтайтын код. Ол <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">ISO 639-1</a> және <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2</a> спецификацияларына сәйкес анықталған: тілге арналған екі кіші әріп, одан кейін астын сызу қажет емес және елдің немесе аймақтың кодын анықтайтын екі бас әріп. <a href="https://www.gnu.org/software/gettext/manual/gettext.html#Rare-Language-Codes">Сирек тілдер</a> үшін үш әріп қолданылады.</p>
+<p>Кейбір спикерлер үшін ел туралы бөлік артық болып көрінуі мүмкін. Шындығында, кейбір тілдерде австриялық неміс (de_AT) немесе бразилиялық португал (pt_BR) сияқты әртүрлі елдерде диалектілер бар. Екінші бөлім осы диалектілерді ажырату үшін қолданылады - ол болмаған кезде тілдің “generic” немесе “hybrid” нұсқасы ретінде қабылданады.</p>
+<h4 id="каталог-құрылымы">Каталог құрылымы</h4>
+<p>Gettext пайдалану үшін біз белгілі бір қалта құрылымын ұстануымыз керек. Біріншіден, бастапқы репозиторийде l10n файлдары үшін ерікті түбірді таңдау керек. Оның ішінде сізде әрбір қажетті орынға арналған қалта және барлық PO/MO жұптарын қамтитын бекітілген LC_MESSAGES қалтасы болады. Мысал:</p>
+<pre class=" language-console"><code class="prism  language-console">&lt;project root&gt;
+ ├─ src/
+ ├─ templates/
+ └─ locales/
+    ├─ forum.pot
+    ├─ site.pot
+    ├─ de/
+    │  └─ LC_MESSAGES/
+    │     ├─ forum.mo
+    │     ├─ forum.po
+    │     ├─ site.mo
+    │     └─ site.po
+    ├─ es_ES/
+    │  └─ LC_MESSAGES/
+    │     └─ ...
+    ├─ fr/
+    │  └─ ...
+    ├─ pt_BR/
+    │  └─ ...
+    └─ pt_PT/
+       └─ ...
+</code></pre>
+<h4 id="көптік-формалары">Көптік формалары</h4>
+<p>Кіріспеде айтқанымыздай, әр түрлі тілдерде әр түрлі көпше ережелерді қолдануға болады. Алайда, gettext бізді тағы да осы қиындықтан құтқарады. Жаңасын жасау кезінде .po файлында сіз осы тілге арналған <a href="https://docs.translatehouse.org/projects/localization-guide/en/latest/l10n/pluralforms.html">көпше ережелерді</a> көрсетуіңіз керек, ал көпше түрге сезімтал аударылған фрагменттер осы Ережелердің әрқайсысы үшін әр түрлі болады. Кодта Gettext-ке қоңырау шалған кезде, сіз сөйлемге қатысты Нөмірді көрсетуіңіз керек және ол пайдалану үшін дұрыс пішінді анықтайды - тіпті қажет болған жағдайда жолды ауыстыруды қолданады.</p>
+<p>Көпше ережелерге қол жетімді көптік сандар саны және берілген санның қандай ережеге сәйкес келетінін анықтайтын n бар логикалық тест кіреді (0-ден бастап). Мысалы:</p>
+<ul>
+<li>Жапон: nplurals=1; plural=0 - тек бір ереже</li>
+<li>Ағылшын: nplurals=2; plural=(n != 1); - екі ереже, Бірінші, Егер N бірлікке тең болса, екінші ереже басқаша</li>
+<li>Бразилиялық португал: nplurals=2; plural=(n &gt; 1); - екі ереже, екіншісі, Егер N бірліктен үлкен болса, біріншісі басқаша</li>
+</ul>
+<p>Енді сіз көпше ережелердің қалай жұмыс істейтінінің негіздерін түсіндіңіз - егер олай етпесеңіз, <a href="https://lingohub.com/blog/2013/07/php-internationalization-with-gettext-tutorial/#Plurals">LingoHub</a> нұсқаулығындағы егжей - тегжейлі түсіндірмені қараңыз-оларды қолмен жазудың орнына <a href="https://docs.translatehouse.org/projects/localization-guide/en/latest/l10n/pluralforms.html">тізімнен</a> қажет нәрсені көшіргіңіз келуі мүмкін.</p>
+<p>Есептегіштермен сөйлемдерді оқшаулау үшін Gettext-ке қоңырау шалған кезде сізге сәйкес Нөмірді көрсету қажет болады. Gettext қандай ереже әрекет ету керектігін анықтайды және дұрыс локализацияланған нұсқаны қолданады. Сізге қосу керек .po әр нақты көпше Ережеге басқа сөйлем береді.</p>
+<h4 id="іске-асыру-мысалы">Іске асыру мысалы</h4>
+<p>Осы теориядан кейін тәжірибеге аздап көшейік. Міне, а кітабынан үзінді .po файлы-оның пішіміне емес, жалпы мазмұнына назар аударыңыз; кейінірек оны өңдеу қаншалықты оңай екенін білесіз:</p>
+<pre class=" language-po"><code class="prism  language-po">msgid ""
+msgstr ""
+"Language: pt_BR\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n &gt; 1);\n"
+
+msgid "We are now translating some strings"
+msgstr "Nós estamos traduzindo algumas strings agora"
+
+msgid "Hello %1$s! Your last visit was on %2$s"
+msgstr "Olá %1$s! Sua última visita foi em %2$s"
+
+msgid "Only one unread message"
+msgid_plural "%d unread messages"
+msgstr[0] "Só uma mensagem não lida"
+msgstr[1] "%d mensagens não lidas"
+</code></pre>
+<p>Бірінші бөлім тақырып ретінде жұмыс істейді, msgid және msgstr әсіресе бос. Онда файлдың кодталуы, көпше түрлері және онша маңызды емес басқа заттар сипатталған. Екінші бөлім қарапайым жолды ағылшын тілінен бразилиялық португал тіліне аударады, ал үшіншісі дәл осылай жасайды, бірақ <a href="https://www.php.net/manual/function.sprintf.php">sprintf</a>-тен жолды ауыстыруды қолданады, сондықтан аудармада пайдаланушы аты мен келу күні болуы мүмкін. Соңғы бөлім-жекеше және көпше нұсқасын ағылшын тілінде msgid ретінде көрсететін көпше формалардың үлгісі және олардың сәйкес аудармалары msgstr 0 және 1 (көпше Ережеде көрсетілген саннан кейін). Сондай-ақ, жолды ауыстыру қолданылады, осылайша санды сөйлемде тікелей көруге болады %d. көптік формаларда әрқашан екі msgid (жекеше және көпше) болады, сондықтан күрделі тілді аударма көзі ретінде пайдаланбау ұсынылады.</p>
+<h4 id="l10n-кілттерін-талқылау">L10n кілттерін талқылау</h4>
+<p>Сіз байқаған боларсыз, біз дереккөз идентификаторы ретінде ағылшын тіліндегі нақты сөйлемді қолданамыз. Бұл msgid бірдей сіздің барлық пайдаланылады .po файлдары, яғни басқа тілдер бірдей форматта және бірдей msgid өрістерінде болады, бірақ аударылған msgstr жолдары болады.</p>
+<p>Аударма кілттері туралы айтатын болсақ, екі негізгі “мектеп” бар:</p>
+<ol>
+<li>msgid нақты ұсыныс ретінде. Негізгі артықшылықтары:
+<ul>
+<li>егер берілген тілге аударылмаған бағдарламалық жасақтама бөліктері болса, көрсетілген кілт әлі де кейбір мәндерді сақтайды. Мысал: егер сізге ағылшын тілінен испан тіліне аудару бақыты бұйырса, бірақ француз тіліне аудару үшін көмек қажет болса, француз сөйлемдері жоқ жаңа бетті жариялауға болады және оның орнына веб-сайттың бөліктері ағылшын тілінде көрсетіледі;</li>
+<li>аудармашыға не болып жатқанын түсіну және msgid негізіндегі дұрыс аударманы орындау оңайырақ;</li>
+<li>бұл сізге бір тіл үшін “free” l10n береді - түпнұсқа;</li>
+<li>Жалғыз кемшілігі: егер сізге нақты мәтінді өзгерту қажет болса, бірнеше тілдік файлдарда бірдей msgid ауыстыру қажет болады.</li>
+</ul>
+</li>
+<li>msgid бірегей құрылымдалған кілт ретінде. Бұл қосымшадағы сөйлемнің рөлін құрылымдық түрде сипаттайды, оның ішінде шаблон немесе оның мазмұны емес, Жол орналасқан бөлік.
+<ul>
+<li>бұл мәтіндік мазмұнды шаблон логикасынан бөлу арқылы кодты ұйымдастырудың тамаша тәсілі.</li>
+<li>алайда, бұл контекстті жіберіп алатын аудармашыға қиындық тудыруы мүмкін. Бастапқы тіл файлы басқа аудармалардың негізі ретінде қажет болады. Мысал: ең дұрысы, әзірлеушіде " en.po “аудармашылар не жазу керектігін түсіну үшін оқитын файл"fr.po”.</li>
+<li>өткізіп алған аудармалар экранда мағынасыз пернелерді көрсетеді (top_menu.welcome орнына Сәлем, пайдаланушы! француз тілінде аударылмаған бетте). Бұл жақсы нәрсе, өйткені ол аударманы жарияламас бұрын аяқтауға мәжбүр етеді - бірақ жаман, өйткені аударма мәселелері интерфейсте таңқаларлықтай қорқынышты болар еді. Дегенмен, кейбір кітапханалар мінез-құлқы басқа тәсілге ұқсас “қосалқы опция” ретінде берілген тілді көрсету мүмкіндігін қамтиды.</li>
+</ul>
+</li>
+</ol>
+<p><a href="https://www.gnu.org/software/gettext/manual/gettext.html">Gettext нұсқаулығы</a> бірінші тәсілге басымдық береді, өйткені проблемалар туындаған жағдайда аудармашылар мен пайдаланушылар үшін бұл оңайырақ. Біз мұнда осылай жұмыс істейтін боламыз. Алайда, <a href="https://symfony.com/doc/current/translation.html#using-real-or-keyword-messages">Symfony</a> құжаттамасы кілт сөзге негізделген аударманы қолдайды, бұл барлық аудармаларға шаблондарға әсер етпестен тәуелсіз өзгерістер енгізуге мүмкіндік береді.</p>
+<h3 id="күнделікті-қолдану">Күнделікті қолдану</h3>
+<p>Әдеттегі қолданбада беттеріңізге статикалық мәтін жазу кезінде кейбір Gettext мүмкіндіктерін пайдаланар едіңіз. Содан кейін бұл ұсыныстар пайда болады .po файлдары аударылады, .mo файлдарына құрастырылады, содан кейін нақты интерфейсті көрсету кезінде Gettext пайдаланылады. Осыны ескере отырып, қадамдық мысалда осы уақытқа дейін талқылаған нәрсені біріктірейік:</p>
+<h4 id="бірнеше-түрлі-gettext-қоңырауларын-қамтитын-үлгі-файлының-мысалы">1. Бірнеше түрлі gettext қоңырауларын қамтитын үлгі файлының мысалы</h4>
+<pre class=" language-php"><code class="prism  language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span> <span class="token keyword">include</span> <span class="token string">'i18n_setup.php'</span> <span class="token delimiter important">?&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>header<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">&gt;</span></span><span class="token php language-php"><span class="token delimiter important">&lt;?=</span><span class="token function">sprintf</span><span class="token punctuation">(</span><span class="token function">gettext</span><span class="token punctuation">(</span><span class="token string">'Welcome, %s!'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token variable">$name</span><span class="token punctuation">)</span><span class="token delimiter important">?&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">&gt;</span></span>
+    <span class="token comment">&lt;!-- code indented this way only for legibility --&gt;</span>
+    <span class="token php language-php"><span class="token delimiter important">&lt;?php</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$unread</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token delimiter important">?&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h2</span><span class="token punctuation">&gt;</span></span><span class="token php language-php"><span class="token delimiter important">&lt;?=</span><span class="token function">sprintf</span><span class="token punctuation">(</span>
+            <span class="token function">ngettext</span><span class="token punctuation">(</span><span class="token string">'Only one unread message'</span><span class="token punctuation">,</span>
+                     <span class="token string">'%d unread messages'</span><span class="token punctuation">,</span>
+                     <span class="token variable">$unread</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token variable">$unread</span><span class="token punctuation">)</span><span class="token delimiter important">?&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h2</span><span class="token punctuation">&gt;</span></span>
+    <span class="token php language-php"><span class="token delimiter important">&lt;?php</span> <span class="token keyword">endif</span> <span class="token delimiter important">?&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">&gt;</span></span><span class="token php language-php"><span class="token delimiter important">&lt;?=</span><span class="token function">gettext</span><span class="token punctuation">(</span><span class="token string">'Introduction'</span><span class="token punctuation">)</span><span class="token delimiter important">?&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span><span class="token php language-php"><span class="token delimiter important">&lt;?=</span><span class="token function">gettext</span><span class="token punctuation">(</span><span class="token string">'We\'re now translating some strings'</span><span class="token punctuation">)</span><span class="token delimiter important">?&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+<ul>
+<li><a href="https://www.php.net/manual/function.gettext.php">gettext()</a> msgid-ді берілген тіл үшін тиісті msgstr-ге аударады. Сондай-ақ, дәл осылай жұмыс істейтін “function_()” аббревиатурасы бар;</li>
+<li><a href="https://www.php.net/manual/function.ngettext.php">ngettext()</a> дәл осылай жасайды, бірақ көпше ережелермен;</li>
+<li>Сондай-ақ, доменді бір қоңырауда қайта анықтауға мүмкіндік беретін <a href="https://www.php.net/manual/function.dgettext.php">dgettext()</a> және <a href="https://www.php.net/manual/function.dngettext.php">dngettext()</a> бар. Келесі мысалда Домен конфигурациясы туралы толығырақ оқыңыз.</li>
+</ul>
+<h4 id="орнату-файлының-мысалы-i18n_setup.php-жоғарыда-қолданылғандай-дұрыс-локалды-таңдап-gettext-орнату-арқылы">2. Орнату файлының мысалы (i18n_setup.php, жоғарыда қолданылғандай), дұрыс локалды таңдап, Gettext орнату арқылы</h4>
+<pre class=" language-php"><code class="prism  language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token comment">/**
+ * Verifies if the given $locale is supported in the project
+ * @param string $locale
+ * @return bool
+ */</span>
+<span class="token keyword">function</span> <span class="token function">valid</span><span class="token punctuation">(</span><span class="token variable">$locale</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+   <span class="token keyword">return</span> <span class="token function">in_array</span><span class="token punctuation">(</span><span class="token variable">$locale</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'en_US'</span><span class="token punctuation">,</span> <span class="token string">'en'</span><span class="token punctuation">,</span> <span class="token string">'pt_BR'</span><span class="token punctuation">,</span> <span class="token string">'pt'</span><span class="token punctuation">,</span> <span class="token string">'es_ES'</span><span class="token punctuation">,</span> <span class="token string">'es'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">//setting the source/default locale, for informational purposes</span>
+<span class="token variable">$lang</span> <span class="token operator">=</span> <span class="token string">'en_US'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isset</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'lang'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">valid</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'lang'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// the locale can be changed through the query-string</span>
+    <span class="token variable">$lang</span> <span class="token operator">=</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'lang'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>    <span class="token comment">//you should sanitize this!</span>
+    <span class="token function">setcookie</span><span class="token punctuation">(</span><span class="token string">'lang'</span><span class="token punctuation">,</span> <span class="token variable">$lang</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//it's stored in a cookie so it can be reused</span>
+<span class="token punctuation">}</span> <span class="token keyword">elseif</span> <span class="token punctuation">(</span><span class="token function">isset</span><span class="token punctuation">(</span><span class="token variable">$_COOKIE</span><span class="token punctuation">[</span><span class="token string">'lang'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">valid</span><span class="token punctuation">(</span><span class="token variable">$_COOKIE</span><span class="token punctuation">[</span><span class="token string">'lang'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// if the cookie is present instead, let's just keep it</span>
+    <span class="token variable">$lang</span> <span class="token operator">=</span> <span class="token variable">$_COOKIE</span><span class="token punctuation">[</span><span class="token string">'lang'</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment">//you should sanitize this!</span>
+<span class="token punctuation">}</span> <span class="token keyword">elseif</span> <span class="token punctuation">(</span><span class="token function">isset</span><span class="token punctuation">(</span><span class="token variable">$_SERVER</span><span class="token punctuation">[</span><span class="token string">'HTTP_ACCEPT_LANGUAGE'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// default: look for the languages the browser says the user accepts</span>
+    <span class="token variable">$langs</span> <span class="token operator">=</span> <span class="token function">explode</span><span class="token punctuation">(</span><span class="token string">','</span><span class="token punctuation">,</span> <span class="token variable">$_SERVER</span><span class="token punctuation">[</span><span class="token string">'HTTP_ACCEPT_LANGUAGE'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">array_walk</span><span class="token punctuation">(</span><span class="token variable">$langs</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token variable">$lang</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token variable">$lang</span> <span class="token operator">=</span> <span class="token function">strtr</span><span class="token punctuation">(</span><span class="token function">strtok</span><span class="token punctuation">(</span><span class="token variable">$lang</span><span class="token punctuation">,</span> <span class="token string">';'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'-'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token string">'_'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">foreach</span> <span class="token punctuation">(</span><span class="token variable">$langs</span> <span class="token keyword">as</span> <span class="token variable">$browser_lang</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">valid</span><span class="token punctuation">(</span><span class="token variable">$browser_lang</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token variable">$lang</span> <span class="token operator">=</span> <span class="token variable">$browser_lang</span><span class="token punctuation">;</span>
+            <span class="token keyword">break</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// here we define the global system locale given the found language</span>
+<span class="token function">putenv</span><span class="token punctuation">(</span><span class="token string">"LANG=$lang"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// this might be useful for date functions (LC_TIME) or money formatting (LC_MONETARY), for instance</span>
+<span class="token function">setlocale</span><span class="token punctuation">(</span><span class="token constant">LC_ALL</span><span class="token punctuation">,</span> <span class="token variable">$lang</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// this will make Gettext look for ../locales/&lt;lang&gt;/LC_MESSAGES/main.mo</span>
+<span class="token function">bindtextdomain</span><span class="token punctuation">(</span><span class="token string">'main'</span><span class="token punctuation">,</span> <span class="token string">'../locales'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// indicates in what encoding the file should be read</span>
+<span class="token function">bind_textdomain_codeset</span><span class="token punctuation">(</span><span class="token string">'main'</span><span class="token punctuation">,</span> <span class="token string">'UTF-8'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// if your application has additional domains, as cited before, you should bind them here as well</span>
+<span class="token function">bindtextdomain</span><span class="token punctuation">(</span><span class="token string">'forum'</span><span class="token punctuation">,</span> <span class="token string">'../locales'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">bind_textdomain_codeset</span><span class="token punctuation">(</span><span class="token string">'forum'</span><span class="token punctuation">,</span> <span class="token string">'UTF-8'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// here we indicate the default domain the gettext() calls will respond to</span>
+<span class="token function">textdomain</span><span class="token punctuation">(</span><span class="token string">'main'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// this would look for the string in forum.mo instead of main.mo</span>
+<span class="token comment">// echo dgettext('forum', 'Welcome back!');</span>
+<span class="token delimiter important">?&gt;</span></span>
+</code></pre>
+<h4 id="аударманы-бірінші-іске-қосуға-дайындау">3. Аударманы бірінші іске қосуға дайындау</h4>
+<p>Gettext-тің жеке framework i18n пакеттерінен үлкен артықшылықтарының бірі-оның кең және қуатты файл пішімі. "мұны түсіну және қолмен өңдеу өте қиын, қарапайым массив оңай болар еді!"Күмәнданбаңыз, мұнда <a href="https://poedit.net/">Poedit</a> сияқты қосымшалар көп көмектеседі. Сіз бағдарламаны олардың <a href="https://poedit.net/download">веб-сайтынан</a> жүктей аласыз, ол ақысыз және барлық платформалар үшін қол жетімді. Бұл үйренуге болатын өте қарапайым құрал және сонымен бірге өте қуатты-ол барлық қол жетімді Gettext мүмкіндіктерін пайдаланады. Бұл нұсқаулық PoEdit 1.8-ге негізделген.</p>
+<p>Бірінші рет іске қосқан кезде мәзірден “File &gt; New…” тармағын таңдау керек. Сізден бірден тілді көрсету сұралады: мұнда сіз аударғыңыз келетін тілді “select/filter” аласыз немесе en_US немесе pt_BR сияқты бұрын айтқан форматты қолдана аласыз.</p>
+<p>Енді біз айтқан каталог құрылымын пайдаланып файлды сақтаңыз. Содан кейін “Extract from sources” түймесін басу керек, мұнда сіз шығару және аудару тапсырмалары үшін әртүрлі параметрлерді реттейсіз. Мұның бәрін кейінірек "Catalog &gt; Properties"арқылы таба аласыз:</p>
+<ul>
+<li>Дереккөз жолдары: мұнда сіз gettext() (және бауырлар) функциясы шақырылатын жобадағы барлық қалталарды көрсетуіңіз керек-бұл әдетте сіздің templates/views қалталарыңыз. Бұл жалғыз міндетті параметр;</li>
+<li>Аударма қасиеттері:
+<ul>
+<li>Жобаның атауы мен нұсқасы, пәрмен және команданың электрондық пошта мекенжайы: пайдалы ақпарат .po файлының тақырыбы;</li>
+<li>Көптік формалары: мұнда біз бұрын айтқан ережелер берілген-үлгілермен сілтеме де бар. Көп жағдайда сіз оны әдепкі параметрмен қалдыра аласыз, өйткені PoEdit көптеген тілдер үшін ыңғайлы көпше ережелер базасын қамтиды.</li>
+<li>Кодтау: UTF-8, жақсырақ;</li>
+<li>Бастапқы кодты кодтау: мұнда сіздің кодтық базаңызда қолданылатын кодтауды орнатыңыз-мүмкін UTF-8, солай емес пе?</li>
+</ul>
+</li>
+<li>Бастапқы кілт сөздер: Негізгі бағдарламалық жасақтама бірнеше бағдарламалау тілдерінде gettext() және ұқсас функциялардың қоңырауларының қалай көрінетінін біледі, бірақ сіз өзіңіздің аударма функцияларыңызды жасай аласыз. Дәл осы жерде сіз осы басқа әдістерді қосасыз. Бұл кейінірек “Tips” бөлімінде талқыланады.</li>
+</ul>
+<p>Осы нүктелерді орнатқаннан кейін ол барлық локализация қоңырауларын табу үшін бастапқы файлдарды сканерлеуді бастайды. Әрбір сканерлеуден кейін PoEdit бастапқы файлдардан не табылғаны және не жойылғаны туралы жиынтық ақпаратты көрсетеді. Жаңа жазбалар аударма кестесіне бос енгізіледі және сіз осы жолдардың локализацияланған нұсқаларын енгізе бастайсыз. Оны сақтаңыз және .mo файлы сол қалтаға (қайта) құрастырылады және та-да: сіздің жобаңыз интернационалдандырылған.</p>
+<ol start="4">
+<li>Жолдарды аудару<br>
+Бұрын байқағаныңыздай, локализацияланған жолдардың екі негізгі түрі бар: жай және көпше формалары бар. Біріншісінде тек екі өріс бар: бастапқы код және локализацияланған жол. Бастапқы жолды өзгерту мүмкін емес, өйткені Gettext/Poedit бастапқы файлдарды өзгерту өкілеттігін қамтымайды - сіз бастапқы кодты өзгертіп, файлдарды қайта сканерлеуіңіз керек. Кеңес: аударма жолын тінтуірдің оң жақ түймешігімен нұқуға болады, ол сізге сол жолды пайдаланатын бастапқы файлдар мен жолдарды көрсетеді. Екінші жағынан, көптік форма жолдарына екі бастапқы жолды және қойындыларды көрсетуге арналған екі өріс кіреді, осылайша сіз әр түрлі соңғы пішіндерді реттей аласыз.</li>
+</ol>
+<p>Дереккөздерді өзгерткен кезде және аудармаларды жаңарту қажет болғанда, жаңарту түймесін басыңыз, сонда Poedit кодты қайта сканерлейді, жоқ жазбаларды жояды, өзгергендерді біріктіреді және жаңаларын қосады. Ол сондай-ақ сіз жасаған басқаларға негізделген кейбір аудармаларды болжауға тырысуы мүмкін. Бұл болжамдар мен өзгертілген жазбалар тексеру қажеттілігін көрсететін “бұлыңғыр” маркерді алады және тізімде алтын түспен көрсетіледі. Егер сізде аудармашылар тобы болса және біреу өзіне сенімді емес нәрсені жазуға тырысса, бұл пайдалы: тек “Fuzzy”-ді белгілеңіз, содан кейін басқа біреу қарап шығады.</p>
+<p>Соңында, “View &gt; Untranslated entries first” деген жазба қалдырған жөн, өйткені бұл сізге бірде-бір жазбаны ұмытпауға көмектеседі. Бұл мәзірден қажет болған жағдайда аудармашыларға контекстік ақпаратты қалдыруға мүмкіндік беретін пайдаланушы интерфейсінің бөліктерін ашуға болады.</p>
+<h3 id="кеңестер-мен-амалдар">Кеңестер мен амалдар</h3>
+<h4 id="мүмкін-кэштеу-мәселелері">Мүмкін кэштеу мәселелері</h4>
+<p>Егер сіз PHP-ді Apache (mod_php) модулі ретінде іске қоссаңыз,. MO файлын кэштеуге байланысты мәселелер туындауы мүмкін. Бұл бірінші оқылымда орын алады, содан кейін оны жаңарту үшін серверді қайта іске қосу қажет болуы мүмкін. Nginx және PHP5 аударым кэшін жаңарту үшін әдетте бірнеше бет жаңартуларын қажет етеді, ал PHP7-де бұл сирек қажет.</p>
+<h4 id="қосымша-көмекші-функциялар">Қосымша көмекші функциялар</h4>
+<p>Көптеген адамдар қалағандай, gettext() орнына _() пайдалану оңайырақ. Көптеген i18n жеке кітапханалары аударылған кодты қысқарту үшін t() сияқты нәрсені пайдаланады. Дегенмен, бұл таңбашаны қолдайтын жалғыз мүмкіндік. Жобаңызға ngettext() үшін _ _() немесе _n() немесе gettext() және sprintf() қоңырауларын біріктіретін ерекше _r () сияқты басқаларын қосқыңыз келуі мүмкін. <a href="https://github.com/php-gettext/Gettext">Php-gettext’s gettext</a> сияқты басқа кітапханалар да осындай көмекші функцияларды ұсынады.</p>
+<p>Мұндай жағдайларда сізге Gettext утилитасына осы жаңа мүмкіндіктерден жолдарды қалай шығару керектігі туралы нұсқау беру қажет болады. Қорықпаңыз, бұл өте қарапайым. Бұл жай ғана өріс. Poedit ішіндегі po файлы немесе Параметрлер экраны. Редакторда бұл опция “Catalog &gt; Properties &gt; Source keywords” ішінде орналасқан. Есіңізде болсын: Gettext көптеген тілдер үшін әдепкі функцияларды біледі, сондықтан бұл тізім бос болып көрінсе, қорықпаңыз. Осы жаңа мүмкіндіктердің сипаттамаларын белгілі бір <a href="https://www.gnu.org/software/gettext/manual/gettext.html#Language-specific-options">форматқа сәйкес</a> қосу керек:</p>
+<ul>
+<li>егер сіз жай ғана жолға аударманы қайтаратын t() сияқты нәрсе жасасаңыз, оны t деп көрсетуге болады. Gettext функцияның жалғыз аргументі аударылатын жол екенін біледі;</li>
+<li>егер функцияда бірнеше аргумент болса, онда сіз бірінші жолдың қайсысында екенін және қажет болған жағдайда көпше түрін көрсете аласыз. Мысалы, егер біз өз функциямызды келесідей шақырсақ: __(‘one user’, ‘%d users’, $number), спецификация __:1,2 болады, яғни бірінші форма бірінші аргумент, ал екінші форма екінші аргумент. Егер оның орнына сіздің нөміріңіз бірінші аргумент ретінде пайдаланылса, спецификация __:2,3 болады, бұл бірінші форманың екінші аргумент екенін көрсетеді және т.б.</li>
+</ul>
+<p>Осы жаңа ережелер енгізілгеннен кейін .po файлы, жаңа сканерлеу кезінде сіздің жаңа жолдарыңыз бұрынғыдай оңай енгізіледі.</p>
+<h4 id="ұсыныстар">Ұсыныстар</h4>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Internationalization_and_localization">Википедия: i18n және l10n</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Gettext">Википедия: Gettext</a></li>
+<li><a href="https://lingohub.com/blog/2013/07/php-internationalization-with-gettext-tutorial/">LingoHub: gettext tutorial көмегімен PHP интернационализациясы</a></li>
+<li><a href="https://www.php.net/manual/book.gettext.php">PHP нұсқаулығы: Gettext</a></li>
+<li><a href="https://www.gnu.org/software/gettext/manual/gettext.html">Мәтінді алу бойынша нұсқаулық</a></li>
+</ul>
+</div>
+</body>
+
+</html>
