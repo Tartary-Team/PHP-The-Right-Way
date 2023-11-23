@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome file</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="тәуелділікті-енгізу">Тәуелділікті енгізу</h1>
+<p><a href="https://wikipedia.org/wiki/Dependency_injection">Википедиядан</a>:</p>
+<blockquote>
+<p>Тәуелділікті енгізу-бұл қатты кодталған тәуелділіктерді жоюға мүмкіндік беретін және оларды жұмыс уақытында немесе компиляция кезінде өзгертуге мүмкіндік беретін бағдарламалық жасақтаманы жобалау үлгісі.</p>
+</blockquote>
+<p>Осы дәйексөздің арқасында тұжырымдама бұрынғыдан әлдеқайда күрделі болып көрінеді. Тәуелділікті енгізу-бұл компонентке оның тәуелділіктерін конструкторды енгізу, әдістерді шақыру немесе қасиеттерді реттеу арқылы беру. Бұл өте қарапайым.</p>
+<h3 id="негізгі-тұжырымдама">Негізгі тұжырымдама</h3>
+<p>Біз бұл тұжырымдаманы қарапайым, бірақ аңғал мысалмен көрсете аламыз.</p>
+<p>Мұнда бізде мәліметтер базасымен байланысу үшін адаптерді қажет ететін мәліметтер базасының класы бар. Біз конструкторда адаптер данасын жасаймыз және қатты тәуелділікті жасаймыз. Бұл тестілеуді қиындатады және дерекқор класы адаптермен өте тығыз байланысты екенін білдіреді.</p>
+<pre class=" language-php"><code class="prism  language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token keyword">namespace</span> <span class="token package">Database</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Database</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">protected</span> <span class="token variable">$adapter</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">__construct</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token variable">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token property">adapter</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MySqlAdapter</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">class</span> <span class="token class-name">MysqlAdapter</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+</span></code></pre>
+<p>Бұл кодты тәуелділікті енгізуді қолдану үшін қайта құруға болады, сондықтан тәуелділікті әлсіретеді. Мұнда біз конструкторға тәуелділікті енгіземіз және <a href="https://www.php.net/manual/en/language.oop5.decon.php#language.oop5.decon.constructor.promotion">конструктордың қасиетін</a> бүкіл сыныпта сипат ретінде қол жетімді ету үшін қолданамыз:</p>
+<pre class=" language-php"><code class="prism  language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token keyword">namespace</span> <span class="token package">Database</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Database</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">__construct</span><span class="token punctuation">(</span><span class="token keyword">protected</span> MySqlAdapter <span class="token variable">$adapter</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">class</span> <span class="token class-name">MysqlAdapter</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+</span></code></pre>
+<p>Енді біз дерекқор класына оның тәуелділігін береміз және оны өзіміз жасамаймыз. Біз тіпті тәуелділік аргументін қабылдайтын және оны осылай орнататын әдісті жасай аламыз немесе $adapter қасиеті жалпыға ортақ болса, оны тікелей орната аламыз.</p>
+<h3 id="күрделі-мәселе">Күрделі мәселе</h3>
+<p>Егер сіз тәуелділікті енгізу туралы оқыған болсаңыз, онда сіз “басқару инверсиясы” немесе "тәуелділікті инверсиялау принципі"терминдерін көрген боларсыз. Бұл тәуелділікті енгізу шешетін күрделі мәселелер.</p>
+<h4 id="бақылау-инверсиясы">Бақылау инверсиясы</h4>
+<p>Бақылау инверсиясы-бұл, олар айтқандай, ұйымдастырушылық бақылауды біздің объектілерден толығымен бөлу арқылы жүйенің “бақылау инверсиясы”. Тәуелділікті енгізу тұрғысынан бұл біздің тәуелділіктерімізді басқару және жүйенің басқа жерінде олардың даналарын құру арқылы әлсіретуді білдіреді.</p>
+<p>Жылдардан бері, PHP қарым-қатынасы Інверсиялық Басқару қолданып келді, бірақ сұрау қалды: біз басқаруды қайда қайда өзгертуіміз келгені мен қайда? Мысалы, MVC қарым-қатынастары өзгертуге басқару жасау үшін басқа басқарушыны немесе негізгі басқарушыны қамтиды. Сол болмаушылықты азайту жеріне, бұл әдіс тек оны орнына жылдамды жылдамды жылдамдау.</p>
+<p>Заңсыз артық өзгерту арқылы бізге тек көмек көрсететін келесі дайындарды тек көмек көрсетуге болады, оларды көмек көрсеткен уақытта, жасау көмек көрсету қажетін жоқ.</p>
+<h3 id="s.o.l.i.d.">S.O.L.I.D.</h3>
+<h4 id="single-responsibility-principle-бірдене-өтініші-принципі">Single Responsibility Principle (Бірдене өтініші принципі)</h4>
+<p>Бірдене өтініші принципі әрекеттер мен жоғары архитектура туралы. Ол “Класс тек бір себепті өзгерту міндеті бар” деп аталады. Мәні бұл, әр класстың софтверді тарататын функционалдық бөлігі бойынша тек бір міндеті болуы керек. Бұл жақсарту жолдасуының ең үлкен маңыздылығы болуы мүмкін. Біздің класымызды тек бір не істеуі керек деп дайындап, оны басқа барлық бағдарламада (әзірлеу) пайдалана аламыз, оны өзгертуге қажет етпейді.</p>
+<h4 id="openclosed-principle-ашутасымалдау-принципі">Open/Closed Principle (Ашу/Тасымалдау Принципі)</h4>
+<p>Ашу/Тасымалдау Принципі сыныпты жасау және функционалды кеңейту туралы. Ол “Софтвер елементтері (сыныптар, модульдер, функциялар т.б.) кеңейту үшін ашу, бірақ өзгерту үшін жабылған болуы керек” деп аталады. Бұл маңыздылықты айту мақсатында, біздің модульдерімізді, сыныптарымызды, және функцияларымызды дайындау үшін, жаңа функционалды қажет болған кезде, біз ескі кодты өзгертуге тиісіз азамат кодты жасауымыз керек. Өзгертуге қажет болдықпен, біз оны жаттап жоқ, бірақ оны жаңа кодты жасаймыз, сонымен қатар, сол кодты қолданатын барлық кодтармен. Өйткені, біздің кластарымызды интерфейстерді реализациялау жолымен жазу көрсетіп, оны интерфейстерге көмек етуге болады, белгілі кластарға баулу жататымасауымыз керек.</p>
+<p>Бұл жақсарту жолдасуының ең үлкен маңыздылығы болуы мүмкін, сонымен қатар, біз жататымасауымызды тиісіздікке жатататын сәулесін бөледі. Бізде жаңа кодты жататымасауымыз, жылдамды өтініш вақтын азайту жататымасауымызды жеткізе алады, және барлықдай болмауымен байланысты ақпаратты қамтымасауымызды азайтып алады. Біз жаңа кодты жылдамды, көбірек сенімдідіні жасауымызды аламыз.</p>
+<h4 id="liskov-substitution-principle-лисковтың-ауыстыру-принципі">Liskov Substitution Principle (Лисковтың Ауыстыру Принципі)</h4>
+<p>Лисковтың Ауыстыру Принципі субтиптау және өсу туралы. Ол “Балалар сыныптары өзінің өскеру сыныптының түрлі анықтамаларын жоқ етуі керек” деп аталады. Немесе, Роберт Си. Мартиннің сөздерімен, “Субтиптерінің база тіркесімдері үшін ауыстырмалы болуы керек” деп аталады.</p>
+<p>Мысалы, егер бізде FileInterface интерфейсі бар болса жаттамау() әдісін анықтайтын, және бізде FileInterface интерфейсін реализациялаушы Audio және Video сыныптары болса, онда біз embed() әдісін пайдалану кезінде оны көрсетуімізді емеспіз. Егер мынау бойынша PDF немесе Gist сыныптарын құру кезінде, FileInterface интерфейсін реализациялаушы боларымызды алсақ, онда embed() әдісінің не істеуін білеміз жаттығу. Бұл жолдасуның ең үлкен маңыздылығы анықтамаларымызды жататату жоғары деңгейде болуы, себебі біз бір түрдегі (мысалы, FileInterface) бір объектті басқа түрге ауыстырсақ, программамызда басқа нәрселерді өзгерту қажет емес.</p>
+<h4 id="interface-segregation-principle-интерфейс-разделения-принципі">Interface Segregation Principle (Интерфейс Разделения Принципі)</h4>
+<p>Интерфейс Разделения Принципі (ИРП) бизнес-логика-клиенттерге өтініш ету туралы. Ол “Клиенттің пайдаланбауы жоқ әдістеріне байланысты саналады” деп аталады. Бұл мақсатында, барлық растаушы сыныптардың реализациясы келетін бір біріне толықтыру үшін бір жалпы интерфейсі болмасы келе, онымен келісімді бір немесе бірнеше концепциялық интерфейстер жасау керек.</p>
+<p>Мысалы, Car немесе Bus сыныптары steeringWheel() әдісіне қызықпырып, бірақ Motorcycle немесе Tricycle сыныптары қызықпырып жоқ. Себебі, Motorcycle немесе Tricycle сыныптары handlebars() әдісіне қызықпырып, бірақ Car немесе Bus сыныптары қызықпырып жоқ. Бұл түрлі транспорттың барлық түрлерінде steeringWheel() мен handlebars() қолдануға алатын, мынау интерфейсін бұрын-ақ басу қажет емес, сондықтан біз сұрасамызды бөлуіміз керек.</p>
+<h4 id="dependency-inversion-principle-заңсызтық-ауыстыру-принципі">Dependency Inversion Principle (Заңсызтық Ауыстыру Принципі)</h4>
+<p>Заңсызтық Ауыстыру Принципі — бүтін сыныптардың арасындағы себепші сілтемелерді жою туралы. Бұл жаңа функционалды өту үшін басқа сыныпты өткізу арқылы пайдалануға байланысты. Ол “Абстракцияға байланыстырылыңдар. Бетбейлерге байланыстырылмаңдар.” деп аталады. Әні тұрақты сөздермен айтуымыз келе, бұл меніңдерді байланыстыруымыздың интерфейс/контракттар немесе абстрактты сыныптар болуы керек, бірақ тұрақты өзгертуді тиісіз салымдармен жүзеге асыруымыз көмек көрсетеді. Біз бұл принципке сәйкес, жоюды байланыстыруды жою үшін жаттығуларымызды жаттығу жасауға болмайды.</p>
+<pre class=" language-php"><code class="prism  language-php"><span class="token keyword">namespace</span> <span class="token package">Database</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Database</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">__construct</span><span class="token punctuation">(</span><span class="token keyword">protected</span> AdapterInterface <span class="token variable">$adapter</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">interface</span> <span class="token class-name">AdapterInterface</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+
+<span class="token keyword">class</span> <span class="token class-name">MysqlAdapter</span> <span class="token keyword">implements</span> <span class="token class-name">AdapterInterface</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+</code></pre>
+<p>Ұстауға байланысты анықтамаларды бұрынғының туралы интерфейске байланыстырылатын Database сыныптарына қарсыласыз болатын байланыстыруды үлгеру көп анықтамалары бар.</p>
+<p>Елестетіп көріңізші, біз командада жұмыс істейміз және әріптес адаптерде жұмыс істейді. Біздің бірінші мысалда біз модульдік сынақтарымыз үшін оны дұрыс модельдей алмас бұрын, аталған әріптесіміз адаптерді аяқтағанша күтуіміз керек еді. Енді тәуелділік интерфейс / келісімшарт болғандықтан, біз әріптесіміз осы келісімшарт негізінде адаптер жасайтынын біле отырып, осы интерфейсті қуана мазақ ете аламыз.</p>
+<p>Бұл әдістің одан да үлкен артықшылығы-біздің код қазір әлдеқайда ауқымды. Егер бір жылдан кейін біз Дерекқордың басқа түріне ауысқымыз келетінін шешсек, бастапқы интерфейсті жүзеге асыратын адаптерді жаза аламыз және оның орнына оны енгізе аламыз, енді қайта өңдеудің қажеті жоқ, өйткені адаптердің интерфейс орнатқан келісімшартты орындауын қамтамасыз ете аламыз.</p>
+<h3 id="контейнерлер">Контейнерлер</h3>
+<p>Тәуелділікті енгізу контейнерлері туралы түсіну керек бірінші нәрсе - олар тәуелділікті енгізумен бірдей емес. Контейнер-бұл тәуелділікті енгізуді жүзеге асыруға көмектесетін ыңғайлы утилита, бірақ оларды қолдануға болады және көбінесе анти-шаблонды, қызметтің орналасуын жүзеге асыру үшін мақсатсыз қолданылады. DI контейнерін қызмет көрсеткіші ретінде сыныптарыңызға енгізу Сіз ауыстыратын тәуелділікке қарағанда контейнерге қатаң тәуелділікті тудыруы мүмкін. Бұл сонымен қатар сіздің кодыңызды әлдеқайда аз мөлдір етеді және сайып келгенде тестілеуді қиындатады.</p>
+<p>Қазіргі заманғы құрылымдардың көпшілігінде тәуелділіктерді конфигурация арқылы байланыстыруға мүмкіндік беретін тәуелділікті енгізуге арналған жеке контейнер бар. Іс жүзінде бұл қолданба кодын жазуға болатындығын білдіреді, ол ол салынған шеңбер сияқты таза және байланыссыз болады.</p>
+<h4 id="қосымша-оқу">Қосымша оқу</h4>
+<ul>
+<li><a href="http://fabien.potencier.org/what-is-dependency-injection.html">Тәуелділікті енгізу дегеніміз не?</a></li>
+<li><a href="https://mwop.net/blog/260-Dependency-Injection-An-analogy.html">Тәуелділікті енгізу: ұқсастық</a></li>
+<li><a href="https://code.tutsplus.com/tutorials/dependency-injection-huh--net-26903">Тәуелділікті енгізу: а?</a></li>
+<li><a href="https://medium.com/philipobenito/dependency-injection-as-a-tool-for-testing-902c21c147f1">Тәуелділікті тестілеу құралы ретінде енгізу</a></li>
+</ul>
+</div>
+</body>
+
+</html>
