@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome file</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="тәуелділікті-басқару">Тәуелділікті басқару</h1>
+<p>Таңдау үшін көптеген PHP кітапханалары, құрылымдар мен компоненттер бар. Сіздің жобаңыз олардың бірнешеуін қолдануы мүмкін — бұл жобаның тәуелділігі. Соңғы уақытқа дейін PHP-де бұл жобалық тәуелділіктерді басқарудың жақсы әдісі болған жоқ. Егер сіз оларды қолмен басқарған болсаңыз да, сіз әлі де іске қосқыштар туралы алаңдауыңыз керек еді. Бұл енді проблема емес.</p>
+<p>Қазіргі уақытта PHP - <a href="https://phptherightway.com/#composer_and_packagist">Composer</a> және <a href="https://phptherightway.com/#pear">PEAR</a> үшін екі негізгі пакетті басқару жүйесі бар. Composer қазіргі уақытта PHP үшін ең танымал пакет менеджері болып табылады, дегенмен ұзақ уақыт бойы пайдаланылған негізгі пакет менеджері PEAR болды. PEAR тарихын білу жақсы идея, өйткені сіз оны ешқашан пайдаланбасаңыз да, оған сілтемелер таба аласыз.</p>
+<h4 id="композитор-және-packagist">Композитор және Packagist</h4>
+<p>Composer-PHP үшін ұсынылған тәуелділік менеджері. Жобаңыздың тәуелділіктерін composer.json-де тізімдеңіз файлы және бірнеше қарапайым командалардың көмегімен композитор Сіздің жобаңыздың тәуелділіктерін автоматты түрде жүктейді және сіз үшін іске қосуды орнатады. Композитор түйіндегі NPM-ге node.js world немесе Ruby world-пен бірге.</p>
+<p>Композитормен үйлесімді және сіздің жобаңызда пайдалануға дайын көптеген PHP кітапханалары бар. Бұл “пакеттер” композитормен үйлесімді PHP кітапханаларының ресми репозиторийі <a href="https://packagist.org/">Packagist</a> тізімінде көрсетілген.</p>
+<h4 id="composer-қалай-орнатуға-болады">Composer қалай орнатуға болады</h4>
+<p>Composer жүктеудің ең қауіпсіз <a href="https://getcomposer.org/download/">әдісі-ресми нұсқауларды орындау</a>. Бұл орнатушының бүлінбегеніне немесе жалған емес екеніне көз жеткізеді. Орнату composer.phar орнатады ағымдағы жұмыс каталогындағы екілік файлы.</p>
+<p>Біз композиторды жаһандық деңгейде орнатуды ұсынамыз (мысалы, /usr/local/bin ішіндегі бір көшірме). Ол үшін келесі пәрменді орындаңыз:</p>
+<pre class=" language-console"><code class="prism  language-console">mv composer.phar /usr/local/bin/composer
+</code></pre>
+<p>Ескерту: егер жоғарыда айтылғандар рұқсаттарға байланысты орындалмаса, sudo префиксін қосыңыз.</p>
+<pre class=" language-console"><code class="prism  language-console">sudo mv composer.phar /usr/local/bin/composer
+</code></pre>
+<p>Жергілікті орнатылған composer іске қосу үшін php composer.phar пайдалану керек фаралар, бүкіл бұл жай ғана composer.</p>
+<h4 id="windows-жүйесінде-орнату">Windows жүйесінде орнату</h4>
+<p>Windows пайдаланушылары үшін бастаудың ең оңай жолы-<a href="https://getcomposer.org/Composer-Setup.exe">Composersetup</a> орнатушысын пайдалану, ол орнатуды орындайды және команд $PATH параметрін пәрмен жолындағы кез келген каталогтан жай ғана composer деп атауға болады.</p>
+<h4 id="тәуелділіктерді-қалай-анықтауға-және-орнатуға-болады">Тәуелділіктерді қалай анықтауға және орнатуға болады</h4>
+<p>Composer Сіздің жобаңыздың тәуелділіктерін composer.json деп аталатын файлда бақылайды. Қаласаңыз, оны қолмен басқара аласыз немесе композиторды өзіңіз пайдалана аласыз. Composer require командасы жобаға тәуелділікті қосады, ал егер сізде composer.json болмаса файлы, олардың бірі жасалады. Міне, сіздің жобаңызға тәуелділік ретінде <a href="https://twig.symfony.com/">Twig</a> қосатын мысал.</p>
+<pre class=" language-console"><code class="prism  language-console">composer require twig/twig:^2.0
+</code></pre>
+<p>Сонымен қатар, composer init командасы сізге толық composer.json жасауға көмектеседі сіздің жобаңызға арналған файл. Қалай болғанда да, сіз composer.json жасағаннан кейін файлы, сіз өзіңіздің тәуелділіктеріңізді жеткізуші каталогына жүктеу және орнату үшін composer көрсете аласыз vendor/. Бұл сіз жүктеген жобаларға да қатысты, оларда composer.json бар файлы:</p>
+<pre class=" language-console"><code class="prism  language-console">composer install
+</code></pre>
+<p>Содан кейін бұл жолды қолданбаның негізгі PHP файлына қосыңыз; бұл PHP-ге жобаңызға тәуелділік үшін Composer іске қосқышын пайдалануды айтады.</p>
+<pre class=" language-php"><code class="prism  language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token keyword">require</span> <span class="token string">'vendor/autoload.php'</span><span class="token punctuation">;</span>
+</span></code></pre>
+<p>Енді сіз өзіңіздің жобаңыздың тәуелділіктерін пайдалана аласыз және олар сұраныс бойынша автоматты түрде жүктеледі.</p>
+<h4 id="тәуелділіктеріңізді-жаңарту">Тәуелділіктеріңізді жаңарту</h4>
+<p>composer.lock деп аталатын файл жасайды composer. composer install алғаш іске қосылған кезде жүктелген әрбір буманың нақты нұсқасын сақтайтын composer.lock. Егер сіз өз жобаңызды басқалармен бөліссеңіз, оның composer екеніне көз жеткізіңіз. composer.lock файлы қосылған, сондықтан composer install іске қосылған кезде олар сіз сияқты нұсқаларды алады. Тәуелділіктеріңізді жаңарту үшін composer update бағдарламасын іске қосыңыз. Орналастыру кезінде composer update қолданбаңыз, тек Composer install, әйтпесе жұмыс ортасында пакеттердің әртүрлі нұсқаларын алуға болады.</p>
+<p>Бұл сіздің нұсқаңызға қойылатын талаптарды икемді түрде анықтаған кезде пайдалы. Мысалы, ~1.8 нұсқасына қойылатын талап " 1.8.0-ден Жаңа, бірақ 2.0-ден аз нәрсені білдіреді.x-dev”. Сондай-ақ, қойылмалы таңбаны * 1.8 сияқты пайдалануға болады.*. Енді Composer update Composer пәрмені сіздің барлық тәуелділіктеріңізді сіз орнатқан шектеулерге сәйкес келетін ең жаңа нұсқаға жаңартады.</p>
+<h4 id="жаңарту-туралы-хабарламалар">Жаңарту туралы хабарламалар</h4>
+<p>Жаңа нұсқалар туралы хабарландыру алу үшін Сіз жазыла аласыз <a href="https://libraries.io/">libraries.io</a>. тәуелділіктерді бақылай алатын және сізге жаңартулар туралы ескертулер жібере алатын веб-қызмет.</p>
+<h4 id="қауіпсіздік-мәселелеріне-тәуелділіктеріңізді-тексеру">Қауіпсіздік мәселелеріне тәуелділіктеріңізді тексеру</h4>
+<p><a href="https://github.com/fabpot/local-php-security-checker">Жергілікті PHP қауіпсіздік тексерушісі</a>-бұл сіздің композиторыңызды тексеретін пәрмен жолы құралы.файлды құлыптаңыз және тәуелділіктеріңіздің кез келгенін жаңарту қажет пе екенін айтыңыз.</p>
+<h4 id="composer-көмегімен-жаһандық-тәуелділіктерді-өңдеу">Composer көмегімен жаһандық тәуелділіктерді өңдеу</h4>
+<p>Composer сонымен қатар ғаламдық тәуелділіктер мен олардың екілік файлдарын өңдей алады. Пайдалану қарапайым, тек сіздің командаңызға global префиксін қосу керек. Егер сіз, мысалы, PHPUnit-ті орнатып, оны бүкіл әлемге қол жетімді еткіңіз келсе, келесі пәрменді орындауыңыз керек:</p>
+<pre class=" language-console"><code class="prism  language-console">composer global require phpunit/phpunit
+</code></pre>
+<p>Бұл ~/.composer жасайды. сіздің global тәуелділіктеріңіз орналасқан composer қалтасы. Орнатылған бумалардың екілік файлдары барлық жерде қол жетімді болуы үшін ~/.composer/vendor/bin қосу керек. перемен $PATH айнымалысындағы қалтасы.</p>
+<ul>
+<li><a href="https://getcomposer.org/doc/00-intro.md">Composer туралы көбірек біліңіз</a></li>
+</ul>
+<h2 id="pear">PEAR</h2>
+<p>Кейбір PHP әзірлеушілеріне ұнайтын тәжірибелі пакет менеджері-<a href="https://pear.php.net/">PEAR</a>. Ол композиторға ұқсас әрекет етеді, бірақ айтарлықтай айырмашылықтары бар.</p>
+<p>PEAR әр пакеттің белгілі бір құрылымға ие болуын талап етеді, яғни пакеттің авторы оны PEAR-мен бірге пайдалануға дайындауы керек. PEAR-мен жұмыс істеуге дайын емес жобаны пайдалану мүмкін емес.</p>
+<p>PEAR пакеттерді жаһандық деңгейде орнатады, яғни олар орнатылғаннан кейін сол сервердегі барлық жобаларға қол жетімді болады. Егер көптеген жобалар бірдей нұсқамен бірдей пакетке сүйенсе, бұл жақсы болуы мүмкін, бірақ екі жоба арасында нұсқалық Қайшылықтар туындаса, мәселелерге әкелуі мүмкін.</p>
+<h4 id="pear-қалай-орнатуға-болады">PEAR қалай орнатуға болады</h4>
+<p>Файлды жүктеу арқылы PEAR орнатуға болады .phar орнатушысы және оны орындау. PEAR құжаттамасында әр операциялық жүйеге арналған егжей-тегжейлі <a href="https://pear.php.net/manual/installation.getting.php">орнату</a> нұсқаулары бар.</p>
+<p>Егер сіз Linux-ті қолдансаңыз, дистрибуция пакетінің менеджерін де тексере аласыз. Мысалы, Debian және Ubuntu-да APT PHP-pear пакеті бар.</p>
+<h4 id="package-қалай-орнатуға-болады">Package қалай орнатуға болады</h4>
+<p>Егер пакет <a href="https://pear.php.net/packages.php">PEAR пакеттерінің</a> тізімінде болса, оны ресми атаумен орнатуға болады:</p>
+<pre class=" language-console"><code class="prism  language-console">pear install foo
+</code></pre>
+<p>Егер пакет басқа арнаға орналастырылса, алдымен сол арнаны анықтап, оны орнату кезінде көрсету керек. Бұл мәселе бойынша қосымша ақпарат алу үшін <a href="https://pear.php.net/manual/guide.users.commandline.channels.php">арнаны пайдалану құжаттамасын</a> қараңыз.</p>
+<ul>
+<li><a href="https://pear.php.net/">PEAR туралы көбірек біліңіз</a></li>
+</ul>
+<h4 id="композитормен-pear-тәуелділіктерін-өңдеу">Композитормен PEAR тәуелділіктерін өңдеу</h4>
+<p>Егер сіз қазірдің өзінде composer қолдансаңыз және кейбір PEAR кодын орнатқыңыз келсе, composer PEAR тәуелділіктерін өңдеу үшін пайдалануға болады. PEAR репозиторийлеріне енді composer 2 нұсқасы тікелей қолдау көрсетпейді, сондықтан PEAR пакеттерін орнату үшін репозиторийді қолмен қосу керек:</p>
+<pre class=" language-json"><code class="prism  language-json"><span class="token punctuation">{</span>
+    <span class="token string">"repositories"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span>
+            <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"package"</span><span class="token punctuation">,</span>
+            <span class="token string">"package"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"pear2/pear2-http-request"</span><span class="token punctuation">,</span>
+                <span class="token string">"version"</span><span class="token punctuation">:</span> <span class="token string">"2.5.1"</span><span class="token punctuation">,</span>
+                <span class="token string">"dist"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                    <span class="token string">"url"</span><span class="token punctuation">:</span> <span class="token string">"https://github.com/pear2/HTTP_Request/archive/refs/heads/master.zip"</span><span class="token punctuation">,</span>
+                    <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"zip"</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token string">"require"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        <span class="token string">"pear2/pear2-http-request"</span><span class="token punctuation">:</span> <span class="token string">"*"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token string">"autoload"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        <span class="token string">"psr-4"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token string">"PEAR2\\HTTP\\"</span><span class="token punctuation">:</span> <span class="token string">"vendor/pear2/pear2-http-request/src/HTTP/"</span><span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>“repositories” бірінші бөлімі composer pear репозиторийін “initialize” (немесе PEAR терминологиясында “discover”) керек екенін айту үшін пайдаланылады. Содан кейін require бөлімінде бума атауының префиксі келесідей болады:</p>
+<pre><code>&gt; pear-channel/package
+</code></pre>
+<p>“pear” префиксі кез-келген қайшылықты болдырмау үшін қатаң түрде орнатылады, өйткені pear арнасы, мысалы, басқа пакет провайдерінің атымен сәйкес келуі мүмкін, содан кейін қысқа арна атауы (немесе толық URL) пакеттің қай арнада екенін көрсету үшін қолданыла алады.</p>
+<p>Бұл код орнатылған кезде ол жеткізушілер каталогында қол жетімді болады және Composer іске қосу құралы арқылы автоматты түрде қол жетімді болады:</p>
+<pre><code>&gt; vendor/pear2/pear2-http-request/pear2/HTTP/Request.php
+</code></pre>
+<p>Бұл PEAR пакетін пайдалану үшін оған келесідей сілтеме жасаңыз:</p>
+<pre class=" language-php"><code class="prism  language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token keyword">require</span> <span class="token constant">__DIR__</span> <span class="token punctuation">.</span> <span class="token string">'/vendor/autoload.php'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">use</span> <span class="token package">PEAR2<span class="token punctuation">\</span>HTTP<span class="token punctuation">\</span>Request</span><span class="token punctuation">;</span>
+
+<span class="token variable">$request</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Request</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</span></code></pre>
+<ul>
+<li><a href="https://getcomposer.org/doc/05-repositories.md">Composer-дағы репозиторийлерді пайдалану туралы көбірек біліңіз</a></li>
+</ul>
+</div>
+</body>
+
+</html>
