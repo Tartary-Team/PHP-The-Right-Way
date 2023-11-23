@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome file</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="тілдің-негізгі-ерекшеліктері">Тілдің негізгі ерекшеліктері</h1>
+<h4 id="бағдарламалау-парадигмалары">Бағдарламалау парадигмалары</h4>
+<p>PHP-көптеген бағдарламалау әдістерін қолдайтын икемді, динамикалық тіл. Осы жылдар ішінде ол айтарлықтай дамыды, атап айтқанда, PHP 5.0 (2004), PHP 5.3 (2009) және PHP 5.4 (2012) ішіндегі анонимді функциялар мен имен кеңістігіне сенімді объектіге бағытталған модель қосылды.</p>
+<h4 id="объектіге-бағытталған-бағдарламалау-oop">Объектіге бағытталған бағдарламалау (OOP)</h4>
+<p>PHP объектіге бағытталған бағдарламалау мүмкіндіктерінің өте толық жиынтығына ие, соның ішінде сыныптарды, дерексіз сыныптарды, интерфейстерді, мұрагерлікті, конструкторларды, клондауды, ерекшеліктерді және т.б. қолдау.</p>
+<ul>
+<li><a href="https://www.php.net/language.oop5">Объектіге бағытталған PHP туралы оқыңыз</a></li>
+<li><a href="https://www.php.net/language.oop5.traits">Жеке қасиеттер туралы оқыңыз</a></li>
+</ul>
+<h4 id="функционалды-бағдарламалау">Функционалды бағдарламалау</h4>
+<p>PHP бірінші дәрежелі функцияларды қолдайды, яғни функция айнымалыға тағайындалуы мүмкін. Айнымалы пайдаланушы немесе кірістірілген мүмкіндіктерге сілтеме жасай алады және динамикалық түрде шақырылады. Функциялар аргумент ретінде басқа функцияларға берілуі мүмкін (жоғары ретті функциялар деп аталатын функция) және функциялар басқа функцияларды қайтара алады.</p>
+<p>Рекурсия, функцияның өзін-өзі шақыруына мүмкіндік беретін функцияны тіл қолдайды, бірақ PHP кодының көп бөлігі итерацияға бағытталған.</p>
+<p>PHP 5.3 (2009) бастап жаңа анонимді функциялар (тұйықталуды қолдайды) бар.</p>
+<p>PHP 5.4 объектінің көріну аймағына тұйықталу мүмкіндігін қосады, сонымен қатар шақырылатын объектілерді қолдауды жақсартады, осылайша оларды барлық жағдайларда дерлік анонимді функциялармен алмастыруға болады.</p>
+<ul>
+<li><a href="https://phptherightway.com/pages/Functional-Programming.html">PHP-де функционалды бағдарламалау туралы толығырақ оқыңыз</a></li>
+<li><a href="https://www.php.net/functions.anonymous">Анонимді мүмкіндіктер туралы оқыңыз</a></li>
+<li><a href="https://www.php.net/class.closure">Жабу сыныбы туралы оқыңыз</a></li>
+<li><a href="https://wiki.php.net/rfc/closures">Толығырақ ақпарат жабылу бойынша RFC де берілген</a></li>
+<li><a href="https://www.php.net/language.types.callable">Шақырылатын элементтер туралы оқыңыз</a></li>
+<li><a href="https://www.php.net/function.call-user-func-array">Call_user_func_array()көмегімен функцияларды динамикалық шақыру туралы оқыңыз</a></li>
+</ul>
+<h4 id="метапрограммалау">Метапрограммалау</h4>
+<p>PHP reflection API және Magic Methods сияқты механизмдер арқылы метапрограммалаудың әртүрлі формаларын қолдайды. __Get (), __set (), __clone (), __toString (), __invoke() және т. б. сияқты көптеген сиқырлы әдістер бар. бұл әзірлеушілерге сыныптың мінез-құлқына қосылуға мүмкіндік береді. Ruby әзірлеушілері PHP-де method_missing жоқ деп жиі айтады, бірақ ол __call() және __Call Static () ретінде қол жетімді.</p>
+<ul>
+<li><a href="https://www.php.net/language.oop5.magic">Сиқырлы әдістер туралы оқыңыз</a></li>
+<li><a href="https://www.php.net/intro.reflection">Рефлексия туралы оқыңыз</a></li>
+<li><a href="https://www.php.net/language.oop5.overloading">Шамадан тыс жүктеме туралы оқыңыз</a></li>
+</ul>
+<h4 id="атаулардағы-бос-орындар-namespaces">Атаулардағы Бос орындар (Namespaces)</h4>
+<p>Жоғарыда айтылғандай, PHP қауымдастығында көптеген кодтар жасайтын көптеген әзірлеушілер бар. Бұл дегеніміз, бір кітапхананың PHP коды басқасымен бірдей сынып атауын қолдана алады. Екі кітапхана да бір имен кеңістігінде қолданылған кезде, олар соқтығысып, қиындықтар тудырады.</p>
+<p><em>namespaces</em> бұл мәселені шешеді. PHP анықтамалық нұсқаулығында сипатталғандай, имен кеңістігін имен кеңістігі файлдары сақталатын амалдық жүйенің каталогтарымен салыстыруға болады; бірдей атаумен екі файл бөлек каталогтарда қатар өмір сүре алады. Сол сияқты, бірдей атаумен екі PHP класы жеке PHP имен кеңістігінде қатар өмір сүре алады. Барлығы өте қарапайым.</p>
+<p>Сіз үшін кодты басқа кітапханалармен соқтығысудан қорықпай, басқа әзірлеушілер пайдалана алатындай етіп имен кеңістігіне орналастыру маңызды.</p>
+<p>Имен кеңістігін пайдаланудың ұсынылған әдістерінің бірі <a href="https://www.php-fig.org/psr/psr-0/">PSR-4</a> бөлімінде сипатталған, оның мақсаты кодты қосуға және ойнатуға мүмкіндік беретін стандартты файлдар, сыныптар және имен кеңістігі конвенциясын қамтамасыз ету болып табылады.</p>
+<p>2014 жылдың қазан айында PHP-FIG алдыңғы іске қосу стандартын жойды: PSR-0. PSR-0 және <a href="https://www.php-fig.org/psr/psr-0/">PSR-4</a> екеуі де әлі де қолдануға жарамды. Соңғысы PHP 5.3-ті қажет етеді, сондықтан тек PHP 5.2-ді қолдайтын көптеген жобалар PSR-0-ді жүзеге асырады.</p>
+<p>Егер сіз жаңа қолданба немесе пакет үшін іске қосу стандартын қолданғыңыз келсе, PSR-4-ті тексеріңіз.</p>
+<ul>
+<li><a href="https://www.php.net/language.namespaces">Namespaces туралы оқыңыз</a></li>
+<li><a href="https://www.php-fig.org/psr/psr-0/">PSR-0 туралы оқыңыз</a></li>
+<li><a href="https://www.php-fig.org/psr/psr-4/">PSR-4 туралы оқыңыз</a></li>
+</ul>
+<h4 id="php-стандартты-кітапханасы">PHP стандартты кітапханасы</h4>
+<p>Стандартты PHP кітапханасы (SPL) PHP-мен бірге келеді және сыныптар мен интерфейстер жиынтығын ұсынады. Ол негізінен деректер құрылымдарының (стек, кезек, үйінді және т.б.) және осы деректер құрылымдарында қозғала алатын итераторлардан немесе SPL интерфейстерін жүзеге асыратын өз сыныптарыңыздан тұрады.</p>
+<ul>
+<li><a href="https://www.php.net/book.spl">SPL туралы оқыңыз</a></li>
+<li><a href="https://www.linkedin.com/learning/learning-the-standard-php-library?trk=lynda_redirect_learning">SPL бейне курсы LinkedIn.com (ақылы)</a></li>
+</ul>
+<h4 id="пәрмен-жолы-интерфейсі-cli">Пәрмен жолы интерфейсі (CLI)</h4>
+<p>PHP веб-қосымшаларды жазу үшін жасалған, бірақ сонымен бірге командалық жол интерфейсі (CLI) бағдарламаларын жазу үшін пайдалы. PHP пәрмен жолы бағдарламалары тестілеу, орналастыру және қолданбаларды басқару сияқты жалпы тапсырмаларды автоматтандыруға көмектеседі.</p>
+<p>CLI PHP бағдарламалары қуатты, өйткені сіз веб-интерфейсті құрудың және қорғаудың қажеті жоқ қолданба кодын тікелей пайдалана аласыз. Тек CLI PHP сценарийлерін Жалпыға Ортақ веб-түбірге орналастырмағаныңызға көз жеткізіңіз!</p>
+<p>PHP пәрмен жолынан іске қосып көріңіз:</p>
+<pre class=" language-console"><code class="prism  language-console">&gt; php -i
+</code></pre>
+<p>‘-i’ параметрі <a href="https://www.php.net/function.phpinfo">phpinfo()</a> функциясы сияқты PHP конфигурациясын шығарады.</p>
+<p>‘-a’ параметрі ruby немесе python интерактивті қабығындағы IRB-ге ұқсас интерактивті қабықты ұсынады. <a href="https://www.php.net/features.commandline.options">Пәрмен жолының</a> басқа да пайдалы нұсқалары бар.</p>
+<p>“Hello, $name” қарапайым CLI бағдарламасын жазайық. Мұны байқап көру үшін hello.php деп аталатын файл жасаңыз.төменде көрсетілгендей.</p>
+<pre class=" language-php"><code class="prism  language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$argc</span> <span class="token operator">!==</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">echo</span> <span class="token string">"Usage: php hello.php &lt;name&gt;"</span> <span class="token punctuation">.</span> <span class="token constant">PHP_EOL</span><span class="token punctuation">;</span>
+    <span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token variable">$name</span> <span class="token operator">=</span> <span class="token variable">$argv</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">echo</span> <span class="token string">"Hello, $name"</span> <span class="token punctuation">.</span> <span class="token constant">PHP_EOL</span><span class="token punctuation">;</span>
+</span></code></pre>
+<p>PHP сіздің сценарийіңіз іске қосылатын дәлелдерге негізделген екі арнайы айнымалыны орнатады. <a href="https://www.php.net/reserved.variables.argc">$argc</a>-аргументтер санын қамтитын бүтін айнымалы, ал каждого <a href="https://www.php.net/reserved.variables.argv">argv</a> - әрбір Аргументтің мәнін қамтитын массив айнымалысы. Бірінші дәлел әрқашан PHP сценарийінің Файл атауы болып табылады, бұл жағдайда hello.php.</p>
+<p>exit() өрнегі командалық қабыққа команданың орындалмағаны туралы хабарлау үшін нөлдік емес санмен қолданылады. Жиі қолданылатын шығу кодтарын <a href="https://www.gsp.com/cgi-bin/man.cgi?section=3&amp;topic=sysexits">мына жерден</a> табуға болады.</p>
+<p>To run our script, above, from the command line:</p>
+<pre class=" language-console"><code class="prism  language-console">&gt; php hello.php
+Usage: php hello.php &lt;name&gt;
+&gt; php hello.php world
+Hello, world
+</code></pre>
+<ul>
+<li><a href="https://www.php.net/manual/en/features.commandline.php">Learn about running PHP from the command line</a></li>
+</ul>
+<h4 id="xdebug">Xdebug</h4>
+<p>Бағдарламалық жасақтаманы әзірлеудегі ең пайдалы құралдардың бірі-дұрыс отладчик. Бұл кодтың орындалуын бақылауға және стек мазмұнын бақылауға мүмкіндік береді. PHP түзеткіші Xdebug-ті тоқтату нүктелерін қамтамасыз ету және стекті тексеру үшін әртүрлі IDE қолдана алады. Бұл сонымен қатар PHPUnit және KCachegrind сияқты құралдарға кодты қамтуды талдауға және кодты профильдеуге мүмкіндік береді.</p>
+<p>Егер сіз ‘var_dump()/print_r()’ - ге жүгінгіңіз келсе және әлі де шешім таба алмасаңыз-сізге түзету құралын пайдалану қажет болуы мүмкін.</p>
+<p><a href="https://xdebug.org/docs/install">Xdebug орнату</a> қиын болуы мүмкін, бірақ оның маңызды мүмкіндіктерінің бірі - “қашықтан жөндеу” - Егер сіз кодты жергілікті түрде жасап, содан кейін оны виртуалды машинаның ішінде немесе басқа серверде сынап көрсеңіз, қашықтан жөндеу-бұл сіз бірден қосқыңыз келетін мүмкіндік.</p>
+<p>Дәстүр бойынша Сіз Apache VHost-ты өзгертесіз немесе. осы мәндері бар .htaccess файлы:</p>
+<pre class=" language-ini"><code class="prism  language-ini">php_value xdebug.remote_host 192.168.?.?
+php_value xdebug.remote_port 9000
+</code></pre>
+<p>“remote host” және “remote port” жергілікті компьютерге және IDE-ді тыңдау үшін конфигурациялаған портқа сәйкес келеді. Содан кейін IDE-ді “қосылымдарды тыңдау” режиміне қойып, URL мекенжайын жүктеу ғана қалады:</p>
+<pre><code>http://your-website.example.com/index.php?XDEBUG_SESSION_START=1
+</code></pre>
+<p>Енді сіздің ide ортаңыз сценарий орындалған кезде ағымдағы күйді ұстап қалады, бұл сізге тоқтау нүктелерін орнатуға және жадтағы мәндерді тексеруге мүмкіндік береді.</p>
+<p>Графикалық отладчиктер кодты кезең-кезеңімен орындауды, айнымалыларды тексеруді және кодты нақты уақыт режимінде бағалауды өте жеңілдетеді. Көптеген IDE-де xdebug көмегімен кірістірілген немесе плагинге негізделген графикалық жөндеу қолдауы бар. MacGDBp-бұл macOS үшін ақысыз, дербес, ашық бастапқы xdebug графикалық интерфейсі.</p>
+<ul>
+<li><a href="https://xdebug.org/docs/">Xdebug туралы көбірек біліңіз</a></li>
+<li><a href="https://www.bluestatic.org/software/macgdbp/">MacGDBp туралы көбірек біліңіз</a></li>
+</ul>
+</div>
+</body>
+
+</html>
