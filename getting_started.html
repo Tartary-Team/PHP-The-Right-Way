@@ -85,34 +85,30 @@ sudo port install php82
 </li>
 <li>
 <p>Жүйесініздің пакеттер тізімін жаңарту үшін:</p>
-<pre><code>sudo apt-get update
-</code></pre>
-</li>
-<li>
-<p><code>lsb-release</code>,  <code>ca-certificates</code>, және  <code>curl</code> орнатыңыз:</p>
 </li>
 </ol>
-<pre><code>```
-sudo apt-get -y install lsb-release ca-certificates curl
-```
+<pre><code>    sudo apt-get update
+</code></pre>
+<ol start="3">
+<li><code>lsb-release</code>,  <code>ca-certificates</code>, және  <code>curl</code> орнатыңыз:</li>
+</ol>
+<pre><code>    sudo apt-get -y install lsb-release ca-certificates curl
 </code></pre>
 <ol start="4">
-<li>
-<p>Репозитория үшін қол жетімді тауып алу үшін белгілерді жүктеу:</p>
-<pre><code>sudo curl -sSLo /usr/share/keyrings/deb.sury.org-php.gpg https://packages.sury.org/php/apt.gpg
-</code></pre>
-</li>
-<li>
-<p>Репозиторияны сіздің жүйесіне қосу:</p>
-<pre><code>sudo sh -c 'echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://packages.sury.org/php/ $(lsb_release -sc) main" &gt; /etc/apt/sources.list.d/php.list'
-</code></pre>
-</li>
-<li>
-<p>Соңында, жүйесініздің пакеттер тізімін жаңартыңыз:</p>
-<pre><code>sudo apt-get update
-</code></pre>
-</li>
+<li>Репозитория үшін қол жетімді тауып алу үшін белгілерді жүктеу:</li>
 </ol>
+<pre><code>   sudo curl -sSLo /usr/share/keyrings/deb.sury.org-php.gpg https://packages.sury.org/php/apt.gpg
+</code></pre>
+<ol start="5">
+<li>Репозиторияны сіздің жүйесіне қосу:</li>
+</ol>
+<pre><code>    sudo sh -c 'echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://packages.sury.org/php/ $(lsb_release -sc) main" &gt; /etc/apt/sources.list.d/php.list'
+</code></pre>
+<ol start="6">
+<li>Соңында, жүйесініздің пакеттер тізімін жаңартыңыз:</li>
+</ol>
+<pre><code>   sudo apt-get update
+</code></pre>
 <p>Бұл адıмдармен, сіздің жүйесі бикшедден соңғы PHP пакеттерін орнатуға мүмкіндікке ие болады.</p>
 <h2 id="әдеттегі-каталогтар-үрдісі">Әдеттегі Каталогтар үрдісі</h2>
 <p>Веб-программалауға бастаушылардың өздеріне сұрау жасауы – 'меніні жағдайымнан кайта тіркеу көрсетіледі, бұдан әрі бұған адамдардың жауабы ‘әдетте <code>DocumentRoot</code> түйісі’ болып табылады. Бұл жауап толымымен толық емес, бірақ бастаушы жерін тауып кету үшін әлемде ең көмекші болып баруы мүмкін.</p>
