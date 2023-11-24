@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome file</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="деректер-базасылары.">Деректер базасылары.</h1>
+<p>Бірнеше PHP кодынызда ақпаратты сақтау үшін көмекші базаны қолданасыз. Сіздің базаңызмен байланыс жасау мен өзара өңдеу үшін бірнеше мүмкіндік бар. PHP 5.1.0-ге дейін ұсынылатын ұсыным – mysqli, pgsql, mssql т.б. кез-келген жерге қатысушыларды қолдану.</p>
+<p>Егер тек бір деректер базасын қолданатын болсаңыз, онда ұсынылатын ұсынымдар жақсы. Бірақ, мысалы, MySQL мен бір жағдайда MSSQL қолданып, немесе Oracle деректер базасына қосылу көрсетсеңіз, онда сіз оларды сол жағдайда қолдана алмайсыз. Сізге өзара өңдеу үшін кез-келген база үшін жаңа API әдістерінің бірін меңгеру керек болады - және бұл міндетті төмендеуі мүмкіндіктерге жол ашуы мүмкін.</p>
+<h3 id="mysql-үшін-кеңейтілгенше-бағдарлама">MySQL үшін кеңейтілгенше бағдарлама</h3>
+<p>PHP үшін <a href="https://www.php.net/mysqli">MySQL</a> кеши аса жасырын жасау үшін әдеттегі ешқайсы жаңа кеңейтілгенше бағдарламалармен ауыстырылған:</p>
+<ul>
+<li><a href="https://www.php.net/mysqli">mysqli</a></li>
+<li><a href="https://www.php.net/pdo">pdo</a></li>
+</ul>
+<p><a href="https://www.php.net/mysqli">mysql</a>-дегі дайын басталған кеңейтілгенін байланысты әрекет жасалмаған тек өте ұзын уақыттың басынан кейін, сондықтан <a href="https://www.php.net/manual/migration70.removed-exts-sapis.php">PHP 7.0-да официальды</a> түрде өшірілді.</p>
+<p>Сіздің php.ini параметрлеріңізге көмекші болу үшін, сіздің таңдаушынузда қолданбаңызда көмекшілік жасау үшін mysql_* іздеу туралы іздеп табу опциясыны іздеу боларымыз. Егер mysql_connect() мен mysql_query() т.б. функциялар көрсетілсе, онда mysql пайдаланылады.</p>
+<p>Сіз PHP 7.x не пайдаланбаған болсаңыздар, бірақ бұл жаңартуды ыңғайлы байқау қылмаса, PHP жаңартуы келгенде көп жастарға қатты жастар өтірікке себеп болады. Ең жақсы таңдау - бірінші байқауны сіздің жасау кестесіне өздерінізде орнату, сондықтан кейінгі кезде тезірек байқау қылмасыңыз.</p>
+<p>Егер сіз <a href="https://www.php.net/mysqli">mysql</a>-ден <a href="https://www.php.net/mysqli">mysqli</a>-ге көшу кезінде, тек mysql_* орында mysqli_* деп ауыстыру мақсатында жатты өтініштіктерді сақтауға тырысасыздар, басылымның антологиясы болмауы мүмкін. Бұл ұсынымдағы тиімділіктерді құтап алмайтын, сондай-ақ <a href="https://www.php.net/pdo">PDO</a>-да да ұсыным берілетін параметрлерден кейінірек көзге алатын толықтырылмайтын байқау қауіптерінен бұрынуы.</p>
+<ul>
+<li><a href="https://websitebeaver.com/prepared-statements-in-php-mysqli-to-prevent-sql-injection">MySQLi Бекітілген байланыстар</a></li>
+<li><a href="https://www.php.net/mysqlinfo.api.choosing">PHP: MySQL үшін API таңдау</a></li>
+</ul>
+<h3 id="pdo-кеңістік">PDO Кеңістік</h3>
+<p>PDO өзге кеңес басқару библиотекасы — PHP 5.1.0-нан бастап жасалған — көптеген кездік базалармен сөйлесуге арналған. Мысалы, сіз MySQL не SQLite-пен интерфейске кірмейтін кодты пайдалану арқылы:</p>
+<pre class=" language-php"><code class="prism  language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token comment">// PDO + MySQL</span>
+<span class="token variable">$pdo</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">PDO</span><span class="token punctuation">(</span><span class="token string">'mysql:host=example.com;dbname=database'</span><span class="token punctuation">,</span> <span class="token string">'user'</span><span class="token punctuation">,</span> <span class="token string">'password'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$statement</span> <span class="token operator">=</span> <span class="token variable">$pdo</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token string">"SELECT some_field FROM some_table"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$row</span> <span class="token operator">=</span> <span class="token variable">$statement</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">fetch</span><span class="token punctuation">(</span><span class="token constant">PDO</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">FETCH_ASSOC</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">echo</span> <span class="token function">htmlentities</span><span class="token punctuation">(</span><span class="token variable">$row</span><span class="token punctuation">[</span><span class="token string">'some_field'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// PDO + SQLite</span>
+<span class="token variable">$pdo</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">PDO</span><span class="token punctuation">(</span><span class="token string">'sqlite:/path/db/foo.sqlite'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$statement</span> <span class="token operator">=</span> <span class="token variable">$pdo</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token string">"SELECT some_field FROM some_table"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$row</span> <span class="token operator">=</span> <span class="token variable">$statement</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">fetch</span><span class="token punctuation">(</span><span class="token constant">PDO</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">FETCH_ASSOC</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">echo</span> <span class="token function">htmlentities</span><span class="token punctuation">(</span><span class="token variable">$row</span><span class="token punctuation">[</span><span class="token string">'some_field'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</span></code></pre>
+<p>PDO сіздің SQL сұрауларын пернесу қылмайды немесе толтырылатын емес фичаларды эмулирумайды; бұл тек бір API-мен көптеген түрлердің базаларына байланысу үшін.</p>
+<p>Мағынан, PDO сізге сәйкес API-мен бірдей база параметрлерін (мысалы, ID) SQL сұрауларына әбден өтініш жасау мүмкіндігін береді. Бұл PDO байланыстырылған сөйлемдер мен бағытталған параметрлерді пайдалана отырып жасалуы мүмкін.</p>
+<p>PHP скрипті бір сан есеппен сұрау параметрі ретінде сан алса, мисалы:</p>
+<pre class=" language-php"><code class="prism  language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token variable">$pdo</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">PDO</span><span class="token punctuation">(</span><span class="token string">'sqlite:/path/db/users.db'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$pdo</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token string">"SELECT name FROM users WHERE id = "</span> <span class="token punctuation">.</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'id'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// &lt;-- ЖАРАМСЫЗ ЕМЕС!</span>
+</span></code></pre>
+<p>Бұл жаман код. Сіз сыртқы сұрау параметріні SQL сұрауына тиістірмей кеткеніз. Бұл SQL Injection деп аталатын практиканы пайдалану арқылы шетелгендірген болады. Тек үміткер параметрмен көзге түсете алсаңыз, мысалы, <a href="http://domain.com/?id=1%3BDELETE+FROM+users">http://domain.com/?id=1%3BDELETE+FROM+users</a> дегенді URL арқылы өтініш жасаса, бұл дәл ойдан 1;DELETE FROM users деп айтылатын, сонымен бірге барлық пайдаланушыларды жою арқылы сайтты қорғау мүмкіндігіні көрсетеді! Олай болмаса, сіз PDO байланыстырылған параметрлерді пайдаланып, ID кірістірілетін сұрау параметріні тазартуыңыз керек.</p>
+<pre class=" language-php"><code class="prism  language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token variable">$pdo</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">PDO</span><span class="token punctuation">(</span><span class="token string">'sqlite:/path/db/users.db'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$stmt</span> <span class="token operator">=</span> <span class="token variable">$pdo</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">prepare</span><span class="token punctuation">(</span><span class="token string">'SELECT name FROM users WHERE id = :id'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$id</span> <span class="token operator">=</span> <span class="token function">filter_input</span><span class="token punctuation">(</span><span class="token constant">INPUT_GET</span><span class="token punctuation">,</span> <span class="token string">'id'</span><span class="token punctuation">,</span> <span class="token constant">FILTER_SANITIZE_NUMBER_INT</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// &lt;-- Мәліметтеріңізді бірінші беттерде фильтрлау (көмек көрсету [Мәліметтерді Фильтрлау](#data_filtering)), арнайы INSERT, UPDATE, т.б. үшін аса маңызды.</span>
+<span class="token variable">$stmt</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">bindParam</span><span class="token punctuation">(</span><span class="token string">':id'</span><span class="token punctuation">,</span> <span class="token variable">$id</span><span class="token punctuation">,</span> <span class="token constant">PDO</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">PARAM_INT</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// &lt;-- Автоматты түрде PDO арқылы SQL үшін тазартылған</span>
+<span class="token variable">$stmt</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">execute</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</span></code></pre>
+<p>Бұл дұрыс код. Бұл PDO сөйлемінде бағытталған параметрді пайдаланады. Ол идентификация келтірілетін шетелген деректерді базада көрсеткеннен бұрын санитариялайды, потенциалды <a href="https://web.archive.org/web/20210413233627/http://wiki.hashphp.org/Validation">SQL injection</a> қауіптеріне қарсы қою.</p>
+<p>Өзгертулер, мисалы, INSERT немесе UPDATE үшін, мәліметтеріңді бірінші беттерде фильтрлау жатамасымен жасау өте маңызды. Бұл PDO тек сіздің бағыттарыңыз үшін тазартады, бірақ сіздің бағытыңыз үшін тазартпайды (HTML тегтерін, JavaScript, т.б. аластату).</p>
+<ul>
+<li><a href="https://www.php.net/pdo">PDO туралы мағлұмат алыңыз</a></li>
+</ul>
+<p>Сізге бас тартып берген көмек көмекпенді білдіремін. Сізге көмек көмекпенді айтар алмайтын болса да, деректер базасы байланыстары ресурстарды пайдалану туралы көмек көмекпенді білгім бар. Байланыстар жасырын болмаса, ресурстарды көбірек есептейтіндігі ешбір уақыттан бетермейді. PDO пайдалану арқылы сіз объектті жоя отырып, оның бар қалдырылған сілтемелерін барлық өтініштерді жойып, міндетті түрде байланысты жабуға болады, міндетті көмек көмекпенді жасау арқылы. Бұндай істеу жасауызба болмаса, PHP скрипті жауапты аяқталатынша байланысты автоматты түрде жабады - бірақ есте сауатты байланыстарды пайдаланбайтын кездерде.</p>
+<ul>
+<li><a href="https://www.php.net/pdo.connections">PDO байланыстары туралы мағлұмат алыңыз</a></li>
+</ul>
+<h3 id="деректер-базасымен-интерактивті-іс-шаралар">Деректер базасымен интерактивті іс-шаралар</h3>
+<p>PHP дайындаушылары PHP дайындаушылары бірінші рет PHP дайындаушыларын үйренуге бастайтында, олар көпшілікке талпынады, деректер базасымен интерфейс логикасын кесіпке тарту, мысалы, осында көрінетін кодты пайдалана отырып:</p>
+<pre class=" language-html"><code class="prism  language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ul</span><span class="token punctuation">&gt;</span></span>
+<span class="token prolog">&lt;?php
+foreach ($db-&gt;query('SELECT * FROM table') as $row) {
+    echo "&lt;li&gt;".$row['field1']." - ".$row['field2']."&lt;/li&gt;";
+}
+?&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ul</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+<p>Бұл барлық себептер бойынша жамандамасыздықты білдіреді, есептеуі дайындау жасауы жаман, тексеруі көбінесеуі жаман, оқуы жаман және осында шектеу жасауын көрсетмесе, бірақ көп жаттықты.</p>
+<p>Бұл жасау өте көп басқа шешімдер бар - <a href="https://phptherightway.com/#object-oriented-programming">ООП</a> немесе <a href="https://phptherightway.com/#functional-programming">функциональды программалауға</a> қараған, бірақ бірде бір түрлі сепарация болуы керек.</p>
+<p>Ең алғашқы қадамды қарау:</p>
+<pre class=" language-php"><code class="prism  language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token keyword">function</span> <span class="token function">getAllFoos</span><span class="token punctuation">(</span><span class="token variable">$db</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token variable">$db</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token string">'SELECT * FROM table'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token variable">$results</span> <span class="token operator">=</span> <span class="token function">getAllFoos</span><span class="token punctuation">(</span><span class="token variable">$db</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">foreach</span> <span class="token punctuation">(</span><span class="token variable">$results</span> <span class="token keyword">as</span> <span class="token variable">$row</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">echo</span> <span class="token string">"&lt;li&gt;"</span><span class="token punctuation">.</span><span class="token variable">$row</span><span class="token punctuation">[</span><span class="token string">'field1'</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token string">" - "</span><span class="token punctuation">.</span><span class="token variable">$row</span><span class="token punctuation">[</span><span class="token string">'field1'</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token string">"&lt;/li&gt;"</span><span class="token punctuation">;</span> <span class="token comment">// ЖАРАМСЫЗ!!</span>
+<span class="token punctuation">}</span>
+</span></code></pre>
+<p>Бұл жақсы бастау. Осы екі элементті екі айрық файлға қосып, сізде бірнеше сапалы сепарация бар.</p>
+<p>Осы методты қою үшін бір клас жасау және сізде “Model” болады. Презентациялық логика үшін қарапайым .php файл жасау және сізде “View” болады, сонымен қатар, сізде көптеген жағдайда осыны ООП архитектурасы ретінде қарастыра алатын, көбінеуленген басқа <a href="https://phptherightway.com/#frameworks">фреймворктер</a> үшін өте көп пайдаланылатын “<a href="https://code.tutsplus.com/tutorials/mvc-for-noobs--net-10488">MVC</a>” - қамтымас ООП архитектурасы болады.</p>
+<h3 id="foo.php">foo.php</h3>
+<pre class=" language-php"><code class="prism  language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token variable">$db</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">PDO</span><span class="token punctuation">(</span><span class="token string">'mysql:host=localhost;dbname=testdb;charset=utf8mb4'</span><span class="token punctuation">,</span> <span class="token string">'username'</span><span class="token punctuation">,</span> <span class="token string">'password'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// Модельді қол жетімді жасау</span>
+<span class="token keyword">include</span> <span class="token string">'models/FooModel.php'</span><span class="token punctuation">;</span>
+
+<span class="token comment">// Нысаны жасау</span>
+<span class="token variable">$fooModel</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FooModel</span><span class="token punctuation">(</span><span class="token variable">$db</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// Foo-лар тізімін алу</span>
+<span class="token variable">$fooList</span> <span class="token operator">=</span> <span class="token variable">$fooModel</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">getAllFoos</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// View-ды көрсету</span>
+<span class="token keyword">include</span> <span class="token string">'views/foo-list.php'</span><span class="token punctuation">;</span>
+</span></code></pre>
+<h3 id="modelsfoomodel.php">models/FooModel.php</h3>
+<pre class=" language-php"><code class="prism  language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token keyword">class</span> <span class="token class-name">FooModel</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">__construct</span><span class="token punctuation">(</span><span class="token keyword">protected</span> <span class="token constant">PDO</span> <span class="token variable">$db</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">getAllFoos</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token variable">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token property">db</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token string">'SELECT * FROM table'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</span></code></pre>
+<h3 id="viewsfoo-list.php">views/foo-list.php</h3>
+<pre class=" language-php"><code class="prism  language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span> <span class="token keyword">foreach</span> <span class="token punctuation">(</span><span class="token variable">$fooList</span> <span class="token keyword">as</span> <span class="token variable">$row</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token delimiter important">?&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">&gt;</span></span><span class="token php language-php"><span class="token delimiter important">&lt;?=</span> <span class="token variable">$row</span><span class="token punctuation">[</span><span class="token string">'field1'</span><span class="token punctuation">]</span> <span class="token delimiter important">?&gt;</span></span> - <span class="token php language-php"><span class="token delimiter important">&lt;?=</span> <span class="token variable">$row</span><span class="token punctuation">[</span><span class="token string">'field1'</span><span class="token punctuation">]</span> <span class="token delimiter important">?&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">&gt;</span></span>
+<span class="token php language-php"><span class="token delimiter important">&lt;?php</span> <span class="token keyword">endforeach</span> <span class="token delimiter important">?&gt;</span></span>
+</code></pre>
+<p>Бұл басында көптеген жаңа фреймворктер көмекшілігімен жасау керек болмаса да, біразды тұрауымен айналдыратын жаттық. Сіздің өтініштеріңізді өзіңіздік қылмасаңыздар да, сол үшін көбірек презентациялық логика мен деректер базасы байланыстарын қиындаудың турауы жасау болмайды, егер дайындықты бағалау көрсетуіңіз келсе.</p>
+<h3 id="абстракцияландыру-қабырғалары">Абстракцияландыру қабырғалары</h3>
+<p>Көптеген фреймворктер PDO-ның жоғарысында олардың өзінің абстракция қабырғасын ұсынады, бірақ бұл PDO-ның ұсынып беретін байланысты басқару қабырғасы болуы мүмкін немесе емес. Олар сізге бір база жүйесінің әрекетін басқа бір база жүйесінің қаламсыз болмауын PHP әдістеріне жинаушы, сізге әдейі көмек көрсету үшін сұрауларыңызды жауап беру үшін. Бұл есте сізге қызмет көрсету кезінде бір мазмұн қосады, бірақ егер сіздің қол жетімді жасауыңызды MySQL, PostgreSQL және SQLite-мен жұмыс істеу үшін басымды көруі келсе, онда біраз мазмұн жасауы үшін оны қосары ақ болады.</p>
+<p>Кейбір абстракцияландыру қабырғалары PSR-0 немесе PSR-4 ұстановка стандарттарын пайдалану арқылы көмек көрсете алады:</p>
+<ul>
+<li>Atlas</li>
+<li>Aura SQL</li>
+<li>Doctrine2 DBAL</li>
+<li>Medoo</li>
+<li>Propel</li>
+<li>laminas-db</li>
+</ul>
+</div>
+</body>
+
+</html>
