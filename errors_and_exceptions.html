@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome file</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="қателер-мен-өтініштер">Қателер мен Өтініштер</h1>
+<h3 id="қателер">Қателер</h3>
+<p>Көптеген «өтінішті жоқ» бағдарламалауда көмекшік тілдерінде бірдеуге нәтиже болса, өтініш тұтады. Бұл көмекшік тілдерде жасау үшін көрсетілген бір жол болуы мүмкін, бірақ PHP «өтінішті жоқ» бағдарламалау тілі. Себебі ол объекттермен жұмыс істейдігінде, бейінігі оларды қолдануда өтініштер бар, бірақ PHP көбінесі ол жоқ болса, не інше пайда болмаса, жұмыс жасау үшін тырысқанады.</p>
+<p>Мысалы:</p>
+<pre class=" language-php"><code class="prism  language-php">$ php <span class="token operator">-</span>a
+php <span class="token operator">&gt;</span> <span class="token keyword">echo</span> <span class="token variable">$foo</span><span class="token punctuation">;</span>
+Notice<span class="token punctuation">:</span> Undefined variable<span class="token punctuation">:</span> foo in php shell code on line <span class="token number">1</span>
+</code></pre>
+<p>Бұл тек ұсыныс қатесі, және PHP маңыздын жұмысын осында жаттай жасауына жатаймайды. Бұл «өтінішті жоқ» тілдерден келген кісілер үшін шамамен қиын болуы мүмкін, себебі Python-да міндетті тіркеу толтырылады:</p>
+<pre class=" language-python"><code class="prism  language-python">$ python
+<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> <span class="token keyword">print</span> foo
+Traceback <span class="token punctuation">(</span>most recent call last<span class="token punctuation">)</span><span class="token punctuation">:</span>
+  File <span class="token string">"&lt;stdin&gt;"</span><span class="token punctuation">,</span> line <span class="token number">1</span><span class="token punctuation">,</span> <span class="token keyword">in</span> <span class="token operator">&lt;</span>module<span class="token operator">&gt;</span>
+NameError<span class="token punctuation">:</span> name <span class="token string">'foo'</span> <span class="token keyword">is</span> <span class="token operator">not</span> defined
+</code></pre>
+<p>Тек ең басты айырмашылық - Python көбінеуленген көмекшік тілдерге сіздің өзіңізге сеніп, әр бір мүмкін кісінішке немесе кейіпкей меншігіне сенімді болмаса, себебі PHP сол жаңа кезде неніпсіз кезде істегеннен бастап, не кете тұрады, сонымен қатар, сонда ол кателікпен аяқтауын береді және оны хабарлауын түсіндіреді.</p>
+<h4 id="қателік-батысу">Қателік Батысу</h4>
+<p>PHP-де бірнеше қателік батыстары бар. Екі есеулік хабарларды, көмекшіліктерді және көрсетулерді бағалайтын үшін тұраулы жаттығу бар. Олардың салмағының деңгейлері бар; E_ERROR, E_NOTICE, және E_WARNING. Қателіктер – бұл өлімді барауымды жаттығу қателіктері және дайыннан оларды басуға себеп болады, себебі олар PHP-ның жаттығуды тоқтатуы мүмкін. Көмекшіліктер – бұл скрипт орындалатын уақытта кодтың бір есігінен, орындалуы тоқтатылмаса да, орындалатын қатесінен туындайтын ұсыныстар. Көрсетулер – бұл өлімсіз қателіктер, скрипт орындалатын үшін тоқтатылмайды.</p>
+<p>Тіркеулі уақытта есептелетін басқа түрлі қателік хабарлары да бар, олардың салмағы E_STRICT хабарлары. Бұл хабарлар, сіздің кодыңыздының өзара жаңартуын, ең іске қосу және келесі версияларымен көмекшілік жасау үшін ұсынылатындар.</p>
+<h3 id="php-ның-қателікті-басқару-әрекетін-өзгерту">PHP-ның Қателікті Басқару әрекетін өзгерту</h3>
+<p>Қателікті басқаруды PHP параметрлері мен/немесе PHP функцияларын пайдалана отырып өзгерту мүмкін. Тіркеулі PHP функциясы error_reporting() арқылы сценарий орындалу уақыты бойынша қателікті деңгейлендіру үшін, сипаттамалы қателік деңгейлерінің біріні бере отырып жаттығу мәнді таңдау арқылы пайдалана аласыз, мысалы, тек Қателіктер мен Көрсетулерді көруге болса - бірақ Қызмет ететіндерді көруге - сол бет:</p>
+<pre class=" language-php"><code class="prism  language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token function">error_reporting</span><span class="token punctuation">(</span><span class="token constant">E_ERROR</span> <span class="token operator">|</span> <span class="token constant">E_WARNING</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</span></code></pre>
+<p>Сіз әзірше екранға көрсетілгеніннен көрінбейтін немесе жасырын жасауға және регистрлеу үшін көрсетілетіндігін тексеру мүмкін (дайындау үшін жаңа). Бұны қосымша ақпарат үшін Қателікті Басқару бөлімін қарауыңыздар.</p>
+<h3 id="жолдамалы-қателерді-өшіру">Жолдамалы қателерді өшіру</h3>
+<p>PHP тізімдемені қоса, сізге PHP-ге @ мәртеу операторымен арнайы қателерді өшіру үшін айтып бере аласыз. Сіз бұл операторды анықтауыңызда бөлшек сәйкесінде, сіздің көрсеткен выражение дайын қатесі нөлге айналар.</p>
+<pre class=" language-php"><code class="prism  language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token keyword">echo</span> @<span class="token variable">$foo</span><span class="token punctuation">[</span><span class="token string">'bar'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+</span></code></pre>
+<p>Егер $foo немесе ‘bar’ кілті жоқ болса, бұл $foo[‘bar’] шығарады, бірақ просто нөлге айналау жасауы үшін еш нәрсе шығармайды. Қателік бағдарламасы операторы жоқ болса, бұл выражение PHP-да санатында PHP ұсынуы: Анықталмаған переменді: foo немесе PHP ұсынымы: Анықталмаған индекс: bar қатесін жасауы мүмкін.</p>
+<p>Бұл өте жақсы болатын көрік, бірақ бірнеше қаламайтын қаржылар бар. PHP @ операторымен выражениеді өңдеу кезінде @ барынша толтырылмағанда кемінде сәйкес алуымен өңдеуді жасауы маңызды. Өнімді оптимизация барлық программалау аргументтерінің түпнұсқасы болуы мүмкін, бірақ өз дайындама/кітаптыңыз үшін көмекші операторды қолдану кезінде @ операторының өзара қамтылмаларын түсіну маңызды болады.</p>
+<p>Екінші, қате басып түсірме операторы қателігі толы тасымайды. Қате көрсетілмейді, және қате журналына жіберілмейді. Қамтамасыз қателіктері бар/өндіру PHP жүйелерінде қате басып түсірме операторын өшіру үшін бір жол жоқ. Сіз қатенін дайын жарықты болатынын дайындауыңыз мүмкін, бірақ басқа, кем дайынша жақсы болатын қате де төмен сызып қойылады.</p>
+<p>Егер сізде қателігі сұрау жасау үшін басқа жол болса, онда оны қамтамау көлемінде есептеу қажет. Мысалы, біздің кодымызды бұрыннан бұл жақта белгіленгенді:</p>
+<pre class=" language-php"><code class="prism  language-php"><span class="token comment">// Null Coalescing Operator</span>
+<span class="token keyword">echo</span> <span class="token variable">$foo</span><span class="token punctuation">[</span><span class="token string">'bar'</span><span class="token punctuation">]</span> <span class="token operator">?</span><span class="token operator">?</span> <span class="token string">''</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Қателікті жою операторын қолдануға жол беру керек болса, егер fopen() файлды таба алмаса, бірақ жүктемейтінді таба алмаса, қайталанып кеткен кейде болуы мүмкін. Сіз файлды таба алу қауіпсіздігін тексере аласыз, бірақ тексеру кезінде файлды жою жаттама көрсетілсе және fopen() алдында (бұл мүмкін болмағандай көрінетін көздерімізді де тартуы мүмкін) файл жойылады, онда fopen() жалғандыра алады және қате шығармайды. Бұл зерттесеу кезінде PHP-ның шешу керек, бірақ қателікті жою операторының тек дайындама шешуі көмекші болуы мүмкін көздесеу.</p>
+<p>Алдымен біз сізге сапалы PHP жүйесінде қате басып түсірме операторын өшірудің бір жолы жоқ деп айтымызды. Бірақ <a href="https://xdebug.org/docs/basic">Xdebug</a>-де xdebug.scream ini баптауы бар, бұл операторды өшіреді. Сіз бұны php.ini файлы арқылы баптау арқылы орнатуыңыз көздесеу болады.</p>
+<pre class=" language-ini"><code class="prism  language-ini"><span class="token constant">xdebug.scream</span> <span class="token attr-value"><span class="token punctuation">=</span> On</span>
+</code></pre>
+<p>Сіз бұны ini_set функциясы арқылы жүргізе аласыз:</p>
+<pre class=" language-php"><code class="prism  language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token function">ini_set</span><span class="token punctuation">(</span><span class="token string">'xdebug.scream'</span><span class="token punctuation">,</span> <span class="token string">'1'</span><span class="token punctuation">)</span>
+</span></code></pre>
+<p>Бұл коды дайындама жасау кезінде көмекші болатын, бірақ дайындау кезінде қате туралы ақпаратты өшіргенді сеніп ойлау кезінде ең көмекші болады. Scream-ды сауатпен қолданып, қате басып түсірме операторы өшірілгенде барлық PHP кітапханалары кодының жұмысы туралы ойлап шығыңыз.</p>
+<ul>
+<li><a href="https://www.php.net/language.operators.errorcontrol">Қате басып түсірме операторлар</a></li>
+<li><a href="https://www.sitepoint.com/">SitePoint</a></li>
+<li><a href="https://xdebug.org/docs/basic">Xdebug</a></li>
+</ul>
+<h4 id="errorexception">ErrorException</h4>
+<p>PHP – дың ‘exception-heavy’ (көптеген қателерді іздеу бойынша жасау көзіне арналған) бағдарламалау тілі болуы мүмкін, және бұны ауыстыру үшін бірнеше код жолдайды. Сіз ErrorException класын қолдана отырып, қателеріңізді ‘exceptions’ (сыртқы дайындамалар) ретінде шығара аласыз, бұл клас Exception класын өзгертеді.</p>
+<p>Бұл Symfony және Laravel гібі көптеген заңги бағдарламаларда орындалатылатын өзгерістердің арасында қамтылуы маңызды болған әдіс. Дебаг режимі (немесе дев режимі) кезінде, мысалы, бұл бағдарламалардың екіші де өзгерістерді жатты және таза stack trace (дайындамаларды көру) көрсетеді.</p>
+<p>Қателерді және сыртқы дайындамаларды дайындау мен есептеу үшін қайдаулар мен өзгерістерге арналған кейбір пакеттер де бар. Мысалы, Laravel-дың стандартты орнатуымен келетін <a href="https://filp.github.io/whoops/">Whoops!</a> деген пакет бар, және ол кез келген фреймворкте қолданылуы мүмкін.</p>
+<p>Даму кезінде қателерді сыртқы дайындамаларды ретінде шығару арқылы сіз олармен өздігінше басқара аласыз, және даму кезінде өзгеріп отырған кезде өзгеріс қозғалату туралы анықтамалармен аталатын catch операторына қаптама кірістігініз кезінде дайындамаларды түсіре аласыз. Түсірілген көлемді кезден бастап келген дайындама сіздің қолданбанызды тезірек робасттылауға арналған етеді.</p>
+<p>Бұны қолдану және ErrorException класымен қателерді басқару туралы көбірек ақпаратты <a href="https://www.php.net/class.errorexception">ErrorException Класы</a> бетінде тапты аласыз.</p>
+<ul>
+<li><a href="https://www.php.net/language.operators.errorcontrol">Қате басып түсірме операторлар</a></li>
+<li><a href="https://www.php.net/errorfunc.constants">Қателерді басқару үшін алдын ала түрленген константалар</a></li>
+<li><a href="https://www.php.net/function.error-reporting">error_reporting()</a></li>
+<li><a href="https://phptherightway.com/#error_reporting">Есептеу</a></li>
+</ul>
+<h3 id="искепшіліктер">Искепшіліктер</h3>
+<p>Искепшіліктер бұл көптеген танымал программалау тілдерінің стандартты бөлігі, бірақ олар көбінесе PHP программистері таңдаушы тұрады. Ruby сияқты тілдер дайындамалы, сондықтан HTTP сұрауы сәтсіз болса, немесе DB сұрауы жарамсыз болса, немесе суретті жаттап алмау мүмкін болса, Ruby (немесе оны қолданатын жемдер) экранға искепшілік шығарар, дайында бар көмекші аласыздарыныздай сізге қате болдырымды білдіреді.</p>
+<p>PHP өзі бұл жағдайда бұзылмалы, міне, file_get_contents() функциясын шақырып алу көбіне болмауы кезінде қате жатамайды, және өте ескі PHP фреймворктары CodeIgniter сияқты әдеттегі жатамдамаларды қайтару, собственді журналдарына хабарлама жасау және әмбебаптың толық недерландарына $this-&gt;upload-&gt;get_error() методын қолдануы болып табу мүмкін. Мәселе сол еді, оларды қате табу үшін және бұл әдісті осы класс үшін қате методының не болдырмауын білу үшін ұсынылатын мәліметтерге бақылап көрісуді талап етеді.</p>
+<p>Біреуі, класстар автоматты түрде экранға қате шығарып, процестен шығу кезінде егерсізді басқа дайындамашы көмекшімен оларды динамик түрде басқару мүмкіндігін тоқтатары. Искепшіліктер программистке қате туралы білдіру үшін шығару керек; олар сонда бұлды дайындамау мекенжайын таңдау мүмкін. Мысалы:</p>
+<pre class=" language-php"><code class="prism  language-php"><span class="token variable">$email</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Fuel<span class="token punctuation">\</span>Email</span><span class="token punctuation">;</span>
+<span class="token variable">$email</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">subject</span><span class="token punctuation">(</span><span class="token string">'Менің тақырыбым'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$email</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">body</span><span class="token punctuation">(</span><span class="token string">'Сізге қалайсызды?'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$email</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">to</span><span class="token punctuation">(</span><span class="token string">'guy@example.com'</span><span class="token punctuation">,</span> <span class="token string">'Біреу'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">try</span>
+<span class="token punctuation">{</span>
+    <span class="token variable">$email</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">catch</span><span class="token punctuation">(</span>Fuel\<span class="token package">Email<span class="token punctuation">\</span>ValidationFailedException</span> <span class="token variable">$e</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment">// Валидациясы жарамсыз</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">catch</span><span class="token punctuation">(</span>Fuel\<span class="token package">Email<span class="token punctuation">\</span>SendingFailedException</span> <span class="token variable">$e</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment">// Драйвер письмо жіберемейді</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">finally</span>
+<span class="token punctuation">{</span>
+    <span class="token comment">// Әр іске қате шығарылған болмаса да, жалпы өтіп кететінде орындалады</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="spl-исключениялары">SPL Исключениялары</h3>
+<p>Жалпы Exception классы программа жасаушы үшін жаттығу бермейді; бірақ бұны бұзару үшін, жалпы Exception классын субкласс қылу арқылы маманданған Исключение түрін құрау мүмкін:</p>
+<pre class=" language-php"><code class="prism  language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token keyword">class</span> <span class="token class-name">ValidationException</span> <span class="token keyword">extends</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+</span></code></pre>
+<p>Бұл дайындамаларды бірден көп Exception түрлерін қосу және өзге исключенияларды өзге түрлерге өзгерту мүмкін. Бұл SPL кеудесінде берілген <a href="https://phptherightway.com/#standard_php_library">SPL Исключенияларын</a> пайдалану арқылы көптеген өзгерту істеушіліктер жасауға болады.</p>
+<p>Мысалы, егер __call() Магиялық әдісін пайдалануын көрсетіп жаттығу болмаса, онда стандартты Exception шығару керек деген үшін әдеттегі Exception шығару нысана болмаса, немесе тек осы үшін өзге Исключение құру қажет болмаса, тек BadMethodCallException шығара аласыз.</p>
+<ul>
+<li><a href="https://www.php.net/language.exceptions">Искепшіліктер туралы оқу</a></li>
+<li><a href="https://www.php.net/spl.exceptions">SPL Исключениялары туралы оқу</a></li>
+<li><a href="https://www.brandonsavage.net/exceptional-php-nesting-exceptions-in-php/">PHP-де Исключияларды жайттару</a></li>
+</ul>
+</div>
+</body>
+
+</html>
