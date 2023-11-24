@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome file</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="шаблонылау">Шаблонылау</h1>
+<p>Шаблонылар контроллер мен домен логикасын төмендету мен презентация логикасын айырмашылықты түсіндірудің жасырын жолын береді. Шаблонылардың өзі тұтас қолданбалардың HTML-ін қамтып алар, басқа пішіндерге мән беретін жаттықтамаларда пайдалануы мүмкін, міндетті түрде XML. Шаблоныларды көбінеуленген осы “views” деп аталады, бұлып, <a href="https://phptherightway.com/pages/Design-Patterns.html#model-view-controller">модель-көрініс-контроллер</a> (MVC) бағдарламалық әрекет жаттықтамасының екінші компонентінің бір бөлігін құрайды.</p>
+<h3 id="ортақ-қолдаулар">Ортақ Қолдаулар</h3>
+<p>Шаблоныларды пайдалануның ең басқа қолдауы - олардың презентация логикасы мен сіздің барлық қолдауларыңыздың арасында жасалатын таза бөлігіді жасау. Шаблонылардың егізгі міндеті - пішіндерленген мазмұнды көрсету. Олар деректерді іздеу, сақтау немесе басқа көбірек қиынды жұмыстар үшін жауапты емесдік. Бұл бетін, табысты код жасауға жолдау береді, алайда өзара іске қосу көлеміне жетпейді, алайда дайыннан көмекші болады, жасаушылар сервер-тізім кодымен (контроллерлер, модельдер) жұмыс істеген, дизайнерлерді де клиент-тізім кодымен (маркап) жұмыс істеген команда ауруында.</p>
+<p>Шаблонылар презентация кодының таратуын дайындау жолдасады. Шаблонылар көбінеуленген көмекші көйлекке (views) орналастырылады, әр бірі бірдені танымаланады. Бұл жолдау кодын қайталанатын қатарларга жаттықтамалар деп аталатын көмек көрсетеді. Мысалы, сіздің сайтыңыздың басы мен астарын бір-бірінен алдыңғы және кейінгі көмекшілерді реттейтін шаблонылар түсінілген мәтінді бір реттейге болады.</p>
+<p>Соңында, сіз пайдаланатын кітапхана бойынша болмаса, шаблонылар пайдалану арқылы пайдаланушылардан табысты мазмұнды автоматты түрде тымырлап алу жолдасатын болады. Қазір біраз кітапханалар дайыннан айыналмалы перемендер мен функцияларға қатынасу мүмкіндігін беретін “сендбокс” дайындауын ұсынайды.</p>
+<h3 id="тұрау-php-шаблоны">Тұрау PHP Шаблоны</h3>
+<p>Тұрау PHP шаблоны - бұл тек нативті PHP кодты пайдаланатын шаблонылар. Олар PHP әсіл тілі болғаны үшін табиғи таңдау. Бұл просто олардың мәнін табу мүмкін, себебі PHP әсіл тілі біздің кодта басқа кодпен, мәселен, HTML кодпен бірге қосуға болатын. Бұл PHP дайындаушылары үшін пайдалы, себебі олардың білуі керек болмайтын жаңа синтаксис жоқ, оларға қол жетімді болатын функцияларды білуді көмек етеді және олардың код редакторларында әмбебапты синтаксис белгілеу және автодайын басқару бар. Сонымен қатар, тұрау PHP шаблонылары кем дайындалатын тұраулама кезеңіне мұқият көмек етеді.</p>
+<p>Әзірлік PHP фреймворктері кез келген түрлі шаблон жүйесін қолдайды, оның ішінде көбінеуленген тұрау PHP болады. Фреймворктардың тысында, <a href="https://stackedit.io/app">Plates</a> немесе <a href="https://stackedit.io/app">Aura.View</a> таралулары, мұндаулармен жұмыс істеу үшін көбінеуленген PHP шаблондарымен жұмыс істеу үшін қазір сақталды, басқа жаңа шаблон функционалдарын ұсынады, міндетті түрде кейбірінан басқару, жасау және кеңейту мүмкіндіктерін ұсынады.</p>
+<h3 id="тұрау-php-шаблонының-жасыл-нұсқасы">Тұрау PHP шаблонының жасыл нұсқасы</h3>
+<p><a href="https://platesphp.com/">Plates</a> кітапханасын пайдалану арқылы.</p>
+<pre class=" language-php"><code class="prism  language-php">
+<span class="token php language-php"><span class="token delimiter important">&lt;?php</span> <span class="token variable">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">insert</span><span class="token punctuation">(</span><span class="token string">'header'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'title'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token string">'Пайдаланушы Профилі'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token delimiter important">?&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">&gt;</span></span>Пайдаланушы Профилі<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>Сәлем, <span class="token php language-php"><span class="token delimiter important">&lt;?=</span><span class="token variable">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">escape</span><span class="token punctuation">(</span><span class="token variable">$name</span><span class="token punctuation">)</span><span class="token delimiter important">?&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token php language-php"><span class="token delimiter important">&lt;?php</span> <span class="token variable">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">insert</span><span class="token punctuation">(</span><span class="token string">'footer'</span><span class="token punctuation">)</span> <span class="token delimiter important">?&gt;</span></span>
+</code></pre>
+<h3 id="өріс-қолдану-арқылы-тұрау-php-шаблонының-міндетін-қолдауы">Өріс қолдану арқылы тұрау PHP шаблонының міндетін қолдауы</h3>
+<p><a href="https://platesphp.com/">Plates</a> кітапханасын пайдалану арқылы.</p>
+<pre class=" language-php"><code class="prism  language-php">
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">&gt;</span></span><span class="token php language-php"><span class="token delimiter important">&lt;?=</span><span class="token variable">$title</span><span class="token delimiter important">?&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>main</span><span class="token punctuation">&gt;</span></span>
+    <span class="token php language-php"><span class="token delimiter important">&lt;?=</span><span class="token variable">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">section</span><span class="token punctuation">(</span><span class="token string">'content'</span><span class="token punctuation">)</span><span class="token delimiter important">?&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>main</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+<pre class=" language-php"><code class="prism  language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span> <span class="token comment">// user_profile.php ?&gt;</span></span>
+
+<span class="token php language-php"><span class="token delimiter important">&lt;?php</span> <span class="token variable">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">layout</span><span class="token punctuation">(</span><span class="token string">'template'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'title'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token string">'Пайдаланушы Профилі'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token delimiter important">?&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">&gt;</span></span>Пайдаланушы Профилі<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>Сәлем, <span class="token php language-php"><span class="token delimiter important">&lt;?=</span><span class="token variable">$this</span><span class="token operator">-</span><span class="token operator">&gt;</span><span class="token function">escape</span><span class="token punctuation">(</span><span class="token variable">$name</span><span class="token punctuation">)</span><span class="token delimiter important">?&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+<h3 id="тіркеулі-шаблоны">Тіркеулі Шаблоны</h3>
+<p>PHP дайындаушылары ол болса да, жас көлемді жобалау тілі болып ақпаратты, шаблонылауда өте <a href="http://fabien.potencier.org/templating-engines-in-php.html">көмекші болмайды</a>. <a href="https://twig.symfony.com/">Twig</a>, <a href="https://github.com/box/brainy">Brainy</a>, немесе <a href="https://www.smarty.net/">Smarty</a>* төмендетуімен тіркеулі шаблоны, шаблонылаудың жаңа синтаксисін ұсыну арқылы бұл босақты толтырады. Автоматты тымырлап алу, төмендету және жасаулы бағдарламалар жаттығу, шығару жаңалықтарды дайындайтын кезді тіркеулі шаблонымен бірге, жазуы жоспарлы болады және қолдануы үшін ұзақ жағдайды тиісті азайтындар. Тіркеулі шаблоны көбірек тілдердің арасында бөлінуі мүмкін, бұлардың жаңа пәні <a href="https://mustache.github.io/">Mustache</a> көрсеткіші.</p>
+<p>*Хотя Smarty автоматты тымырлап алу ұсынады, бұл мүмкіндік Әдепте қосылмаған жағдайда қосылмайды.</p>
+<h3 id="тіркеулі-шаблонының-жасыл-нұсқасы">Тіркеулі шаблонының жасыл нұсқасы</h3>
+<p><a href="https://twig.symfony.com/">Twig</a> кітапханасын пайдалану арқылы.</p>
+<pre class=" language-twig"><code class="prism  language-twig"><span class="token tag"><span class="token ld"><span class="token punctuation">{%</span> <span class="token keyword">include</span></span> <span class="token string"><span class="token punctuation">'</span>header.html<span class="token punctuation">'</span></span> <span class="token property">with</span> <span class="token punctuation">{</span><span class="token string"><span class="token punctuation">'</span>title<span class="token punctuation">'</span></span><span class="token punctuation">:</span> <span class="token string"><span class="token punctuation">'</span>Пайдаланушы Профилі<span class="token punctuation">'</span></span><span class="token punctuation">}</span> <span class="token rd"><span class="token punctuation">%}</span></span></span>
+
+<span class="token other"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">&gt;</span></span>Пайдаланушы Профилі<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>Сәлем,</span> <span class="token tag"><span class="token ld"><span class="token punctuation">{{</span></span> <span class="token property">name</span> <span class="token rd"><span class="token punctuation">}}</span></span></span><span class="token other"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span></span>
+
+<span class="token tag"><span class="token ld"><span class="token punctuation">{%</span> <span class="token keyword">include</span></span> <span class="token string"><span class="token punctuation">'</span>footer.html<span class="token punctuation">'</span></span> <span class="token rd"><span class="token punctuation">%}</span></span></span>
+</code></pre>
+<h3 id="тіркеулі-шаблонының-өріс-қолдауын-пайдалану">Тіркеулі шаблонының өріс қолдауын пайдалану</h3>
+<p><a href="https://twig.symfony.com/">Twig</a> кітапханасын пайдалану арқылы.</p>
+<pre class=" language-php"><code class="prism  language-php"><span class="token comment">// template.html</span>
+
+<span class="token operator">&lt;</span>html<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span>head<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>title<span class="token operator">&gt;</span><span class="token punctuation">{</span><span class="token operator">%</span> block title <span class="token operator">%</span><span class="token punctuation">}</span><span class="token punctuation">{</span><span class="token operator">%</span> endblock <span class="token operator">%</span><span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>title<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>head<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span>body<span class="token operator">&gt;</span>
+
+<span class="token operator">&lt;</span>main<span class="token operator">&gt;</span>
+    <span class="token punctuation">{</span><span class="token operator">%</span> block content <span class="token operator">%</span><span class="token punctuation">}</span><span class="token punctuation">{</span><span class="token operator">%</span> endblock <span class="token operator">%</span><span class="token punctuation">}</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>main<span class="token operator">&gt;</span>
+
+<span class="token operator">&lt;</span><span class="token operator">/</span>body<span class="token operator">&gt;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>html<span class="token operator">&gt;</span>
+</code></pre>
+<pre class=" language-php"><code class="prism  language-php"><span class="token comment">// user_profile.html</span>
+
+<span class="token punctuation">{</span><span class="token operator">%</span> <span class="token keyword">extends</span> <span class="token string">"template.html"</span> <span class="token operator">%</span><span class="token punctuation">}</span>
+
+<span class="token punctuation">{</span><span class="token operator">%</span> block title <span class="token operator">%</span><span class="token punctuation">}</span>Пайдаланушы Профилі<span class="token punctuation">{</span><span class="token operator">%</span> endblock <span class="token operator">%</span><span class="token punctuation">}</span>
+<span class="token punctuation">{</span><span class="token operator">%</span> block content <span class="token operator">%</span><span class="token punctuation">}</span>
+    <span class="token operator">&lt;</span>h1<span class="token operator">&gt;</span>Пайдаланушы Профилі<span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">&gt;</span>
+    <span class="token operator">&lt;</span>p<span class="token operator">&gt;</span>Сәлем<span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> name <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">&gt;</span>
+<span class="token punctuation">{</span><span class="token operator">%</span> endblock <span class="token operator">%</span><span class="token punctuation">}</span>
+</code></pre>
+<h3 id="қосымша-оқу">Қосымша Оқу</h3>
+<h4 id="мақалалар-және-оқу-мақалалар">Мақалалар және Оқу-Мақалалар</h4>
+<ul>
+<li><a href="http://fabien.potencier.org/templating-engines-in-php.html">PHP-де Шаблонылау Жасаулары</a></li>
+<li><a href="https://code.tutsplus.com/tutorials/an-introduction-to-views-templating-in-codeigniter--net-25648">CodeIgniter-де Пайдалану және Шаблонылауға Кіріс</a></li>
+<li><a href="https://www.smashingmagazine.com/2011/10/getting-started-with-php-templating/">PHP Шаблонылаумен Танысу</a></li>
+<li><a href="https://code.tutsplus.com/tutorials/roll-your-own-templating-system-in-php--net-16596">PHP-де Өзіміздік Шаблонылау Жүйесін Жасау</a></li>
+<li><a href="https://laracasts.com/series/laravel-from-scratch/episodes/7">Master Pages</a></li>
+<li><a href="https://code.tutsplus.com/tutorials/working-with-templates-in-symfony-2--cms-21172">Symfony 2-де Шаблонымен Жұмыс Жасау</a></li>
+<li><a href="https://github.com/box/brainy/wiki/Writing-Safe-Templates">Қауіпсіздік Шаблонын Жасау</a></li>
+</ul>
+<h3 id="кітапханалар">Кітапханалар</h3>
+<ul>
+<li><a href="https://github.com/auraphp/Aura.View">Aura.View</a> (тауар)</li>
+<li><a href="https://laravel.com/docs/blade">Blade</a> (тіркеуленген, фреймворктық)</li>
+<li><a href="https://github.com/box/brainy">Brainy</a> (тіркеуленген)</li>
+<li><a href="https://github.com/nette/latte">Latte</a> (тіркеуленген)</li>
+<li><a href="https://github.com/bobthecow/mustache.php">Mustache</a> (тіркеуленген)</li>
+<li><a href="https://phptal.org/">PHPTAL</a> (тіркеуленген)</li>
+<li><a href="https://platesphp.com/">Plates</a> (тауар)</li>
+<li><a href="https://www.smarty.net/">Smarty</a> (тіркеуленген)</li>
+<li><a href="https://twig.symfony.com/">Twig</a> (тіркеуленген)</li>
+<li><a href="https://docs.laminas.dev/laminas-view/">laminas-view</a> (тауар, фреймворктық)"</li>
+</ul>
+</div>
+</body>
+
+</html>
