@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome file</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="caching-көмегі">Caching көмегі</h1>
+<p>PHP бірдей бір тез жұмсауды атқарушы, бірақ удаленнен байланыстар жасау, файлдарды жүктеу жаттығу жатпайтын болуы мүмкін. Көмек көрсету үшін сіздің өтініміңіздің кейінгі кезеңдерін тездету немесе осы көп уақыт алушы қызметтерді кейінгі кезеңдерде жүргізу көмек көрсететін көптеген құралдар бар.</p>
+<h3 id="opcode-cache">Opcode Cache</h3>
+<p>PHP файлы іске қосылғанда, ол алдын-ала <a href="https://php-legacy-docs.zend.com/manual/php4/en/internals2.opcodes">opcodes</a> (CPU үшін машина тілі беруші басқару нұсқалары)ға компиляциялануы керек. Егер бағдарлама коды өзгермесе, онда opcodes сондай-ақ олар бірдей болады, сондықта бұл компиляциялану кезеңі CPU ресурстарына тұрақтымайтын болады.</p>
+<p>Opcode кеші, opcodes-ты адамдардың көмек көрсетуінен алысатынша қабылданбайды, сондықта оларды жадта сақтап, оларды кейінгі өзге өтінімдерден қайта пайдалану арқылы пайдаланады. Салыстыру кезеңінде кездейсоны файлдың қолданба немесе өзгеріс уақытын тексереді.</p>
+<p>Олардың ішінде opcode кеші сіздің бағдарламанызға тым жылдамдық пайдалануын қамтамасыз етеді. PHP 5.5-тен бастап онда - <a href="https://www.php.net/book.opcache">Zend OPcache</a> бар. Сіздің PHP пакеті/распределениясына байланысты, ол көмек көрсету бойынша әдепкіде қосылатын - <a href="https://www.php.net/manual/opcache.configuration.php#ini.opcache.enable">opcache.enable</a> және phpinfo() функциясының шығармасын тексеріңіз. Ескі версиялар үшін PECL кеуге бар.</p>
+<p>Opcode кешілер туралы толығырақ оқу:</p>
+<ul>
+<li><a href="https://www.php.net/manual/opcache.configuration.php#ini.opcache.enable">Zend OPcache</a> (5.5-тен бастап PHP-мен бірге келеді)</li>
+<li>Zend OPcache (бұрыннан білінетіндей, Zend Optimizer+ деп аталды) қазіргі уақытта <a href="https://github.com/zendtech/ZendOptimizerPlus">ашық код</a></li>
+<li><a href="https://www.iis.net/downloads/microsoft/wincache-extension">WinCache</a> (MS Windows Server- үшін кеуге)</li>
+<li><a href="https://wikipedia.org/wiki/List_of_PHP_accelerators">Wikipedia-дағы PHP жеделдерінің тізімі</a></li>
+<li><a href="https://www.php.net/opcache.preloading">PHP Preloading</a>- PHP &gt;= 7.4</li>
+</ul>
+<h3 id="нысан-кеші">Нысан кеші</h3>
+<p>Ваш кодтағы жеке объектілерді кешіге алу маңызды болары бар; мәселен, алу мәсілесіне өте дайындаулы болары жатпай тұрар, немесе нәтижесі өзгеуінен өзге болмайтын деректі сұраулар. Сіз объектілерді алдыңғы сұраулар үшін кештеу қосымшасын пайдалана отырып, оларды шығару кезінде эңгізгеніңізді сақтасаңыз, соңғы сұраулар үшін кештен тіпті моментті көру үшін оларды дайыннан тартып аласыз, сонда бағдарлама серверлеріне жүкті дайындайтыншы.</p>
+<p>Танымал bytecode кешілеу шешімдерінің көпшілі сіздікілік деректерді де кешіге алуға мүмкіндік береді, сондай-ақ олардан пайдалану үшін төмендегі беттік тұрақтар болмаса да. APCu және WinCache олардың жадты кешіге сақтау үшін API-ларын береді.</p>
+<p>Ең көп пайдаланылатын жадты кешіге объектілері кешіге алу жүйесі APCu және memcached. APCu - бұл объектілерді кешіге алу үшін отбасы дайындалады, ол өз деректі жадымен кешіге деректерді қосу үшін арнайы API-ге қолдау көрсетеді және орнату және пайдалану өте оңай. APCu-ның бір денесі - бұл ол орнатылған серверге байланыстырылған болуы. Екінші жақта, memcached жалпы қызмет ретінде орнатылады және ашықтығынан шағымдалып, онда бірорнан бір адал жерде өте тез деректерді сақтауға болады, сондықтан көптеген өзге жүйелер олардан тартып ала алады.</p>
+<p>Ескертуді алайда, PHP-ді (Fast-)CGI қолдану арқылы веб-серверінізде жүріп отыратын кезде көмекші процесстеріңіздің көмекшісі кешіге алмайды, міне, APCu деректері сіздікі процестер арасында бөлінбейді. Олардың орындаушысын алу үшін memcached пайдалану мүмкін, бірақ ол PHP процестерімен байланыстырылмайды.</p>
+<p>Желілі басқаруда APCu көмекші пішімде memcached-тан жылық табуды талап етеді, бірақ memcached шапшауымай және көбірек аралықтарда өлшемін арттыруға болады. Егер сіздің бағдарламаңызды көтергі жасаушылармен жұмыс істеуі жоқ немесе memcached-тің ұсынылған емес болуы келсе, онда APCu дайындалу үшін сіздің ең жақты таңдауыңыз болары.</p>
+<p>Мысалды APCu пайдалану кезіндегі мана:</p>
+<pre class=" language-php"><code class="prism  language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+<span class="token comment">// 'expensive_data' атауымен жад кешіге сақталған деректерді тексеру</span>
+<span class="token variable">$data</span> <span class="token operator">=</span> <span class="token function">apcu_fetch</span><span class="token punctuation">(</span><span class="token string">'expensive_data'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$data</span> <span class="token operator">===</span> <span class="token boolean">false</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// деректер кешіге бармауы; өтінішті алу үшін шығармашылық шақырымның нәтижесін сақтау</span>
+    <span class="token function">apcu_add</span><span class="token punctuation">(</span><span class="token string">'expensive_data'</span><span class="token punctuation">,</span> <span class="token variable">$data</span> <span class="token operator">=</span> <span class="token function">get_expensive_data</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">print_r</span><span class="token punctuation">(</span><span class="token variable">$data</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</span></code></pre>
+<p>Ескертпе: PHP 5.5 дейінгі жер көтеру алғашқындай APC кірістірмесі болды, онда ол нысанды кешігі мен байткодты кешігі қамтып алды. Жаңа APCu - бұл APC-ның нысанды кешігін PHP 5.5+ үшін жасау проекті, себебі PHP-де қазіргіде байткодты кешігі (OPcache) бар.</p>
+<h3 id="меморияның-объектілерін-кешіздету-жүйелері-туралы-толығырақ-білу-үшін-көбірек-мәлімет">Меморияның объектілерін кешіздету жүйелері туралы толығырақ білу үшін көбірек мәлімет:</h3>
+<ul>
+<li><a href="https://github.com/krakjoe/apcu">APCu</a></li>
+<li><a href="https://www.php.net/apcu">APCu Documentation</a></li>
+<li><a href="https://memcached.org/">Memcached</a></li>
+<li><a href="https://redis.io/">Redis</a></li>
+<li><a href="https://www.php.net/ref.wincache">WinCache Functions</a></li>
+</ul>
+</div>
+</body>
+
+</html>
