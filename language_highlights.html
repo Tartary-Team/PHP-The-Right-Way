@@ -9,7 +9,26 @@
 </head>
 
 <body class="stackedit">
-  <div class="stackedit__html"><h1 id="тілдік-нұсқаулар">Тілдік нұсқаулар</h1>
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li><a href="#тілдік-нұсқаулар">Тілдік нұсқаулар</a>
+<ul>
+<li><a href="#программалау-парадигмалары">Программалау Парадигмалары</a></li>
+<li><a href="#неймспейстерлер">Неймспейстерлер</a></li>
+<li><a href="#стандартты-php-кітапханасы">Стандартты PHP Кітапханасы</a></li>
+<li><a href="#команда-жолындағы-интерфейс">Команда Жолындағы Интерфейс</a></li>
+<li><a href="#xdebug">Xdebug</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <h1 id="тілдік-нұсқаулар">Тілдік нұсқаулар</h1>
 <h2 id="программалау-парадигмалары">Программалау Парадигмалары</h2>
 <p>PHP – бұл көпті бағдарламалау техниктерін қолдау қоса алатын жаттығу, динамикалық тіл. Ол жылдар бойы шынайы объектілік модельді PHP 5.0 (2004), анонимді функциялар мен неймспейстерлерді PHP 5.3 (2009), және PHP 5.4 (2012) жылдарында трейттерді қоса алады деп айтарымыз.</p>
 <h3 id="объектілік-программалау">Объектілік Программалау</h3>
@@ -29,7 +48,7 @@
 <li><a href="https://www.php.net/class.closure">Closure класы туралы оқу</a></li>
 <li><a href="https://wiki.php.net/rfc/closures">Қосымша түсіндірулер Closures RFC тақырыбында</a></li>
 <li><a href="https://www.php.net/language.types.callable">Callables туралы оқу</a></li>
-<li><a href="https://www.php.net/function.call-user-func-array">Функцияларды динамик ретте шағымдауға болатын <code>call_user_func_array()</code> пайдалану туралы оқу</a></li>
+<li><a href="https://www.php.net/function.call-user-func-array">Функцияларды динамик ретте шағымдауға болатын  <code>call_user_func_array()</code>  пайдалану туралы оқу</a></li>
 </ul>
 <h3 id="meta-programming">Meta Programming</h3>
 <p>PHP supports various forms of meta-programming through mechanisms like the Reflection API and Magic Methods. There are many Magic Methods available like  <code>__get()</code>,  <code>__set()</code>,  <code>__clone()</code>,  <code>__toString()</code>,  <code>__invoke()</code>, etc. that allow developers to hook into class behavior. Ruby developers often say that PHP is lacking  <code>method_missing</code>, but it is available as  <code>__call()</code>  and  <code>__callStatic()</code>.</p>
@@ -40,10 +59,10 @@
 </ul>
 <h2 id="неймспейстерлер">Неймспейстерлер</h2>
 <p>Жоғарыда аталғаны тұлғалармен PHP әлемінде көптеген дайындар код жасаушылары бар. Бұл онымен, бір библиотеканың PHP коды басқа библиотеканың кодымен бірдей клас атауын пайдалануы мүмкін. Егер ешкімнің кодымен бірдей клас атауы болса, олар бірдей неймспейстерде пайдаланылса, олар қосылып, бір-бірімен бірігіп тұрып жататарды жасайды және мәселен туралып жататарды жасайды.</p>
-<p><em>Неймспейстерлер</em> бұл мәселені шешеді. PHP сипаттама нұсқауларында айтылғандай, неймспейстерлер операциялық жүйе директорияларымен тура келіп, файлдарды “неймспейс” жасайды; екеуі бір атты файлдар айнымас шолу директорияларында бара алады. Солайша, екеуі бір атты PHP кластары да айнымас неймспейстерлерде бара алады. Бұл тездік.</p>
+<p><em>Неймспейстерлер</em>  бұл мәселені шешеді. PHP сипаттама нұсқауларында айтылғандай, неймспейстерлер операциялық жүйе директорияларымен тура келіп, файлдарды “неймспейс” жасайды; екеуі бір атты файлдар айнымас шолу директорияларында бара алады. Солайша, екеуі бір атты PHP кластары да айнымас неймспейстерлерде бара алады. Бұл тездік.</p>
 <p>Сіздің кодыңызды неймспейстерге салу маңызды, сондықтан ол басқа жасаушыларды айнымас библиотекалармен қосылмау жасамасынан қорқмауыз.</p>
-<p>Неймспейстерлерді пайдалану үшін  <a href="https://www.php-fig.org/psr/psr-4/">PSR-4</a> да белгіленген жолды пайдалануымыз маңызды. Бұл, плагиаттык кодты қолдану үшін стандартты файл, клас және неймспейс кеңістігін ұсыну мақсатын қою.</p>
-<p>2014 жылдың қазан айында PHP-FIG бұл стандартты айтысты: <a href="https://www.php-fig.org/psr/psr-0/">PSR-0</a>. PSR-0 мен PSR-4 бірдей пайдаланылуы мүмкін. Соңғысы PHP 5.3 талап етеді, сондықтан көбі PHP 5.2 тек бұзылмайтын бағдарламалар PSR-0-ді өзгертуді ұмытады.</p>
+<p>Неймспейстерлерді пайдалану үшін  <a href="https://www.php-fig.org/psr/psr-4/">PSR-4</a>  да белгіленген жолды пайдалануымыз маңызды. Бұл, плагиаттык кодты қолдану үшін стандартты файл, клас және неймспейс кеңістігін ұсыну мақсатын қою.</p>
+<p>2014 жылдың қазан айында PHP-FIG бұл стандартты айтысты:  <a href="https://www.php-fig.org/psr/psr-0/">PSR-0</a>. PSR-0 мен PSR-4 бірдей пайдаланылуы мүмкін. Соңғысы PHP 5.3 талап етеді, сондықтан көбі PHP 5.2 тек бұзылмайтын бағдарламалар PSR-0-ді өзгертуді ұмытады.</p>
 <p>Жаңа қолданба немесе пакет үшін айтыстыру стандартты пайдалану қалайсыздарыңызды  <a href="https://www.php-fig.org/psr/psr-4/">PSR-4-ге тырысыңыз</a>.</p>
 <ul>
 <li><a href="https://www.php.net/language.namespaces">Неймспейстерлер туралы оқу</a></li>
@@ -58,12 +77,13 @@
 </ul>
 <h2 id="команда-жолындағы-интерфейс">Команда Жолындағы Интерфейс</h2>
 <p>PHP веб-дайындарды жазу үшін жасалған, бірақ скрипттенген команда жолындағы интерфейс (CLI) бағдарламаларын жасауға арналғанда да пайдалы. Команда жолындағы PHP бағдарламалары тесттік, деплоймент, және бағдарлама әкімшілігі сияқты көптеген орта міндеттерді автоматтауға көмек көміді.</p>
-<p>CLI PHP бағдарламалары сіздің бағдарлама кодыңызды тіркесіз, оны өзгерту мен қауіпсіздікке қажет болмайтын веб GUI (графикалық пайдалану интерфейсі) жасамаған кезде қолайлы. Тек ескеріңіз, <strong>тек өз CLI PHP скриптілеріңізді көрсетпейіз</strong> !</p>
+<p>CLI PHP бағдарламалары сіздің бағдарлама кодыңызды тіркесіз, оны өзгерту мен қауіпсіздікке қажет болмайтын веб GUI (графикалық пайдалану интерфейсі) жасамаған кезде қолайлы. Тек ескеріңіз,  <strong>тек өз CLI PHP скриптілеріңізді көрсетпейіз</strong>  !</p>
 <p>PHP-ді команда жолынан іске асыруды көріңіз:</p>
 <pre class=" language-console"><code class="prism  language-console">&gt; php -i
+
 </code></pre>
-<p><code>-i</code> опциясы  <a href="https://www.php.net/function.phpinfo"><code>phpinfo()</code></a> функциясымен сәйкес PHP конфигурациясын басып шығарады.</p>
-<p><code>-a</code> опциясы интерактивті шеллді ұсынады, сияқты ruby-нің IRB немесе python-нің интерактивті шелліне ұпай қосады. Басқа пайдалы  <a href="https://www.php.net/features.commandline.options">команда жолындағы опциялар</a> бар.</p>
+<p><code>-i</code>  опциясы  <a href="https://www.php.net/function.phpinfo"><code>phpinfo()</code></a>  функциясымен сәйкес PHP конфигурациясын басып шығарады.</p>
+<p><code>-a</code>  опциясы интерактивті шеллді ұсынады, сияқты ruby-нің IRB немесе python-нің интерактивті шелліне ұпай қосады. Басқа пайдалы  <a href="https://www.php.net/features.commandline.options">команда жолындағы опциялар</a>  бар.</p>
 <p>Өйткені, біздің “Сәлем, $name” CLI бағдарламамызды жасауға талап көрсетейік. Оны сынамау үшін төмендегі сипаттаманы алады “hello.php” атты файлды жасаңыз.</p>
 <pre class=" language-php"><code class="prism  language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
 <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$argc</span> <span class="token operator">!==</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -72,28 +92,32 @@
 <span class="token punctuation">}</span>
 <span class="token variable">$name</span> <span class="token operator">=</span> <span class="token variable">$argv</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 <span class="token keyword">echo</span> <span class="token string">"Сәлем, $name"</span> <span class="token punctuation">.</span> <span class="token constant">PHP_EOL</span><span class="token punctuation">;</span>
+
 </span></code></pre>
-<p>PHP сценарийінізді іске асыруда қолданылатын аргументтерге негізделген екі арнайы өріс жасайды.  <a href="https://www.php.net/reserved.variables.argc"><code>$argc</code></a> - бұл аргументтердін  <em>санын</em>  қамтындауға арналған бүтін сан,  <a href="https://www.php.net/reserved.variables.argv"><code>$argv</code></a> - бұтін аргументтердін  <em>мәнінің</em>  бірікмесі. Бірінші аргумент әрі көмекше сценарий файлының аты болады, міндетті түрде “hello.php” бұл мәнінде.</p>
-<p><code>exit()</code> анықтамасы, команданың қатесін білдіру үшін ненеге баратын емес сан боларымыз. Жиі байланысатын шығару кодтар  <a href="https://www.gsp.com/cgi-bin/man.cgi?section=3&amp;topic=sysexits">мұндай жерде</a> табылмайды.</p>
+<p>PHP сценарийінізді іске асыруда қолданылатын аргументтерге негізделген екі арнайы өріс жасайды.  <a href="https://www.php.net/reserved.variables.argc"><code>$argc</code></a>  - бұл аргументтердін  <em>санын</em>  қамтындауға арналған бүтін сан,  <a href="https://www.php.net/reserved.variables.argv"><code>$argv</code></a>  - бұтін аргументтердін  <em>мәнінің</em>  бірікмесі. Бірінші аргумент әрі көмекше сценарий файлының аты болады, міндетті түрде “hello.php” бұл мәнінде.</p>
+<p><code>exit()</code>  анықтамасы, команданың қатесін білдіру үшін ненеге баратын емес сан боларымыз. Жиі байланысатын шығару кодтар  <a href="https://www.gsp.com/cgi-bin/man.cgi?section=3&amp;topic=sysexits">мұндай жерде</a>  табылмайды.</p>
 <p>Біздің сценарийді, жоғарыда, команда жолынан іске асыруды толтыру үшін:</p>
 <pre class=" language-console"><code class="prism  language-console">&gt; php hello.php
 Қолдану: php hello.php &lt;аты&gt;
 &gt; php hello.php Әлем
 Сәлем, Әлем
+
 </code></pre>
 <ul>
 <li><a href="https://www.php.net/manual/en/features.commandline.php">PHP-ді команда жолынан іске асыру туралы оқу</a></li>
 </ul>
 <h2 id="xdebug">Xdebug</h2>
 <p>Бағдарламалау жасаушылығында ең пайдалы құралдардан бірі дебаггер. Ол сізге кодыныздын орындалуын бақылау мен тізбегінің мазмұнын бақыламауға мүмкіндік береді. Xdebug, PHP дебаггері, Breakpoints және stack бақылау жасау үшін көптеген IDE-лерді пайдалана алады. Сондықтан PHPUnit және KCacheGrind кез-келген кодты байланыс анализі мен кодты профилизациялау үшін пайдалана алады.</p>
-<p>Өзгеріске өзінізді қандай жаттығуға қалайысыздығыңызды байланысататын болса,  <code>var_dump()</code>/<code>print_r()</code> қолдана бірмек, жауапты табу мүмкін емес - сіз дебаггерді пайдалануға мүмкіндік беретіндігін байқайсыздарыңыз.</p>
-<p><a href="https://xdebug.org/docs/install">Xdebug орнату</a> мүмкін болады, бірақ оның ең маңызды мүмкіндіктерінің бірі “Қашықтықты дебаглау” - егер сіз кодты жергілікті дайындасында дайын тест ету қайта нысандасаңыз, “Қашықтықты дебаглау” бұл сізге көмек көрсететін мүмкіндік болады.</p>
+<p>Өзгеріске өзінізді қандай жаттығуға қалайысыздығыңызды байланысататын болса,  <code>var_dump()</code>/<code>print_r()</code>  қолдана бірмек, жауапты табу мүмкін емес - сіз дебаггерді пайдалануға мүмкіндік беретіндігін байқайсыздарыңыз.</p>
+<p><a href="https://xdebug.org/docs/install">Xdebug орнату</a>  мүмкін болады, бірақ оның ең маңызды мүмкіндіктерінің бірі “Қашықтықты дебаглау” - егер сіз кодты жергілікті дайындасында дайын тест ету қайта нысандасаңыз, “Қашықтықты дебаглау” бұл сізге көмек көрсететін мүмкіндік болады.</p>
 <p>Салтанатта, сіз Apache VHost немесе .htaccess файлында бұл мәндерді өзгертуіз:</p>
 <pre class=" language-ini"><code class="prism  language-ini">php_value xdebug.remote_host 192.168.?.?
 php_value xdebug.remote_port 9000
+
 </code></pre>
 <p>“remote host” және “remote port” сіздің локал компьютеріңізге және IDE-ңізді өздігінізге көруге орнатылатын портқа сәйкес келеді. Содан кейін IDE-ңізді “қосылуларды күту” режиміне қоятын және URL-ді жүктеу қажет:</p>
 <pre><code>http://your-website.example.com/index.php?XDEBUG_SESSION_START=1
+
 </code></pre>
 <p>Сіздің IDE-ңіз қазір сценарий орындалатын уақыттағы ағымдылығын персоналдайтып, бейнелерді орнату мен жадыдагы мәндерді тексеру мүмкіндігін береді.</p>
 <p>Графикалық дебаггерлар кодты бағыттайтын, айнымасын тексеру жасайтын және тиісті жұмыс уақытша кодты еңгізу мүмкіндігін береді. Көптеген IDE-лерде Xdebug-мен графикалық дебаглауға қосу жалпы немесе плагинді қолдану мүмкін. MacGDBp, macOS-үшін тегін, ашық кодты GUI-сы болатын стандартты Xdebug.</p>
@@ -101,7 +125,9 @@ php_value xdebug.remote_port 9000
 <li><a href="https://xdebug.org/docs/">Xdebug туралы толығырақ оқу</a></li>
 <li><a href="https://www.bluestatic.org/software/macgdbp/">MacGDBp туралы толығырақ оқу</a></li>
 </ul>
-</div>
+
+    </div>
+  </div>
 </body>
 
 </html>
