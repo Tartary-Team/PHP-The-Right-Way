@@ -9,19 +9,34 @@
 </head>
 
 <body class="stackedit">
-  <div class="stackedit__html"><h1 id="кодты-документтелу">Кодты документтелу</h1>
-<h3 id="phpdoc">PHPDoc</h3>
-<p>PHPDoc PHP кодты түсіндіру үшін көмекші байланыс. Оларды тізімдейтін анықтамалар жататын. Толық тізімі мен мысалдарды PHPDoc бойынша көмек кітапшасында таба аласыз.</p>
-<p>Төменде сізге кейбір әдістермен бір класты документтелу жолымен мысал берілген:</p>
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li><a href="#кодты-документтегіздеу">Кодты документтегіздеу</a>
+<ul>
+<li><a href="#phpdoc">PHPDoc</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <h1 id="кодты-документтегіздеу">Кодты документтегіздеу</h1>
+<h2 id="phpdoc">PHPDoc</h2>
+<p>PHPDoc PHP кодын түсініктемелу әдісіді айту үшін пайдаланылатын ішкі стандарт.  <a href="https://docs.phpdoc.org/latest/guide/references/phpdoc/tags/index.html">тегтердің</a>  жатты мәні мен мисалдар тізімін PHPDoc құжатында таба аласыз.</p>
+<p>Төменде бір сыныпты жеке өрістерімен документтегіздеу міндеттілігін көрейік;</p>
 <pre class=" language-php"><code class="prism  language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
 <span class="token comment">/**
- * @author A Name &lt;a.name@example.com&gt;
+ * @author Аты &lt;a.name@example.com&gt;
  * @link https://www.phpdoc.org/docs/latest/index.html
  */</span>
 <span class="token keyword">class</span> <span class="token class-name">DateTimeHelper</span>
 <span class="token punctuation">{</span>
     <span class="token comment">/**
-     * @param mixed $anything \DateTime объектіне айналдыратын нәрсе
+     * @param mixed $anything \DateTime объектына айналдыратын көшірме боларында не болмаса
      *
      * @throws \InvalidArgumentException
      *
@@ -32,16 +47,16 @@
         <span class="token variable">$type</span> <span class="token operator">=</span> <span class="token function">gettype</span><span class="token punctuation">(</span><span class="token variable">$anything</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
         <span class="token keyword">switch</span> <span class="token punctuation">(</span><span class="token variable">$type</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token comment">// \DateTime объектіне айналдыру үшін көмекші код</span>
+            <span class="token comment">// \DateTime объектына айналдыратын көшірме болары</span>
         <span class="token punctuation">}</span>
 
         <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name"><span class="token punctuation">\</span>InvalidArgumentException</span><span class="token punctuation">(</span>
-            <span class="token string">"'{$type}' түріндегі параметрді \DateTime объектіне айналдыру сәтсіз болды"</span>
+            <span class="token string">"Түрі '{$type}' болатын параметрді \DateTime объектына айналдырату сәтсіз болды"</span>
         <span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 
     <span class="token comment">/**
-     * @param mixed $date \DateTime объектіне айналдыратын нәрсе
+     * @param mixed $date \DateTime объектына айналдыратын көшірме боларында не болмаса
      *
      * @return void
      */</span>
@@ -51,7 +66,7 @@
     <span class="token punctuation">}</span>
 
     <span class="token comment">/**
-     * @param mixed $date \DateTime объектіне айналдыратын нәрсе
+     * @param mixed $date \DateTime объектына айналдыратын көшірме боларында не болмаса
      */</span>
     <span class="token keyword">public</span> <span class="token keyword">function</span> <span class="token function">printRFC2822Date</span><span class="token punctuation">(</span><span class="token variable">$date</span><span class="token punctuation">)</span>
     <span class="token punctuation">{</span>
@@ -59,10 +74,12 @@
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </span></code></pre>
-<p>Класс бойынша барлық үшін барлық бағдарлама <a href="https://docs.phpdoc.org/latest/guide/references/phpdoc/tags/author.html">@author</a> тегі мен <a href="https://docs.phpdoc.org/latest/guide/references/phpdoc/tags/link.html">@link</a> тегін қамтиды. <a href="https://docs.phpdoc.org/latest/guide/references/phpdoc/tags/author.html">@author</a> тегі кодтың авторын анықтау үшін пайдаланылады және бірнеше авторларды анықтау үшін кейбір ретпен жасалуы мүмкін. <a href="https://docs.phpdoc.org/latest/guide/references/phpdoc/tags/link.html">@link</a> тегі код пен веб-сайт арасындағы байланысты көрсету үшін пайдаланылады.</p>
-<p>Сынып ішінде бірінші әдіс <a href="https://docs.phpdoc.org/latest/guide/references/phpdoc/tags/param.html">@param</a> тегінінде өтінімге берілетін параметрдің түрін, атын және сипаттамасын анықтау үшін пайдаланылады. Қоса, олда <a href="https://docs.phpdoc.org/latest/guide/references/phpdoc/tags/return.html">@return</a> мен <a href="https://docs.phpdoc.org/latest/guide/references/phpdoc/tags/throws.html">@throws</a> тегтері бар; сияқты, келесі түйіндемелерді документтеу үшін пайдаланылады.</p>
-<p>Екінші және үшінші әдістер өте салыстырылуы мүмкін және бір <a href="https://docs.phpdoc.org/latest/guide/references/phpdoc/tags/param.html">@param</a> тегі бар болатын бірінші әдістен бірақ кездейсоқ. Екінші және үшінші әдістердің документтегінін орналасуының маңызды айырымы екінші мен үшінші әдістердің документтегінің <a href="https://docs.phpdoc.org/latest/guide/references/phpdoc/tags/return.html">@return</a> тегінін қосу/кестеу болады. @return void екінші жолдасқан және үшінші әдістерді документтегіні қосбасыздан қалдыруда (біріктіруде) тарихи себепті, бір түрде ешқандай қайтару жоқ (қайтару жоқ) дегенін білдіреді.</p>
-</div>
+<p>Сыныптың барлығы үшін бағдарламаны анықтау үшін  <a href="https://docs.phpdoc.org/latest/guide/references/phpdoc/tags/author.html">@author</a>  тегі мен  <a href="https://docs.phpdoc.org/latest/guide/references/phpdoc/tags/link.html">@link</a>  тегі бар.  <a href="https://docs.phpdoc.org/latest/guide/references/phpdoc/tags/author.html">@author</a>  тегі кодты жасаушыны анықтау үшін пайдаланылады және бірнеше жасаушыларды анықтау үшін қайталанады.  <a href="https://docs.phpdoc.org/latest/guide/references/phpdoc/tags/link.html">@link</a>  тегі кодпен веб-сайт арасында байланыс болатын веб-сайтқа сілтеме жасау үшін пайдаланылады.</p>
+<p>Сынып ішінде бірінші өтініште параметрді өтінішке жататын түрі, атауы мен сипаттамасын анықтау үшін  <a href="https://docs.phpdoc.org/latest/guide/references/phpdoc/tags/param.html">@param</a>  тегі бар. Сонымен қатар, олдағы қайталанатын тіпті,  <a href="https://docs.phpdoc.org/latest/guide/references/phpdoc/tags/return.html">@return</a>  мен  <a href="https://docs.phpdoc.org/latest/guide/references/phpdoc/tags/throws.html">@throws</a>  тегтері бар, осында өтінішті беру түрі мен болатын боларды анықтау үшін.</p>
+<p>Екінші және үшінші өтініштер өте ұсын болып табылады, жатталатын және жатталатын екінші және үшінші өтініштердің doc блоктарының арасында  <a href="https://docs.phpdoc.org/latest/guide/references/phpdoc/tags/param.html">@param</a>  тегі бар. Екінші және үшінші өтініштердің doc блоктарының маңызды айырмашылығы  <a href="https://docs.phpdoc.org/latest/guide/references/phpdoc/tags/return.html">@return</a>  тегінің қосу/жою мүмкіндігіні көрсету.  <code>@return void</code>  нақты мәлімет болмайды деп айтуында бізге хабарлама бар; тарихи шолу  <code>@return void</code>  ұсынбаса, сонымен қатар (қайтарым табылмаса) нәтиже барлық іс-шараларды бірге көздейді.</p>
+
+    </div>
+  </div>
 </body>
 
 </html>
